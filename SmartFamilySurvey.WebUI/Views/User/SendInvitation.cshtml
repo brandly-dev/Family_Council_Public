@@ -1,0 +1,125 @@
+﻿@model ESS.SFS.ViewModel.UserViewModel
+@{
+    ViewData["Title"] = "Send Invitation";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1>Login</h1>
+
+<a href="javascript:;" class="btn btn-label-brand btnExpand btn-sm" data-toggle="modal" data-target="#ExpandModel">Invite User</a>
+
+<div class="modal fade" id="ExpandModel" tabindex="-1" role="dialog" aria-labelledby="ExpandModelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Поканете нови потребители
+                </h5>
+                <button type="button" class="close Closethis" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @using (Html.BeginForm("SendInvitation", "User", FormMethod.Post, new { @class = "kt-form" }))
+                            {
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control", @placeholder = "Email", @autocomplete = "off" })<br />
+                                    @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+                                </div>
+                                <span id="spEmailError" style="color:red; display:none;">Задължително поле</span>
+                                <span id="spEmailError" style="color:red; display:none;">Задължително поле</span>
+                                <br />
+                                <div class="input-group">
+                                    @Html.TextAreaFor(m => m.message, new { @type = "message", @class = "form-control", @placeholder = "Message", @autocomplete = "off" })<br />
+                                    @Html.ValidationMessageFor(x => x.message, "", new { @class = "text-danger" })
+                                </div>
+                                <span id="spEmailError" style="color:red; display:none;">Задължително поле</span>
+
+                                <div class="kt-login__actions">
+                                    <button id="kt_login_signin_submit" type="submit" class="btn btn-brand btn_Login btn-elevate kt-login__btn-primary">Изпращане</button>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary closemodel" data-dismiss="modal">Отмяна</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+
+
+        @*$('#kt_login_signin_submit').click(function (e) {
+            e.preventDefault();
+
+            if ($("#email").val() == null || $("#email").val() == undefined || $("#email").val() == "") {
+                alert("Invalid email address.");
+            }
+            else {
+                // alert("Valid email address.");
+            }
+
+
+            if (!ValidateEmail($("#email").val())) {
+                alert("Invalid email address.");
+            }
+            else {
+               // alert("Valid email address.");
+            }
+
+            var Email = $('#email').val();
+            var Message = $('#message').val();
+
+            if ($("#message").val() == null || $("#message").val() == undefined || $("#message").val() == "") {
+                alert("Invalid email address.");
+            }
+            else {
+                // alert("Valid email address.");
+            }
+
+            activeOrder(Email, Message);
+        });
+
+        function ValidateEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        };
+
+        function activeOrder(Email, Message) {
+            var orderID = $(obj).attr('order-id');
+            $.post("/User/SendInvitation",
+                uvm = {
+                    Email: Email,
+                    Message: Message
+                     },
+
+                     function (data) {
+                         if (data.status = "success") {
+                             $(obj).attr("disabled", "disabled");
+                             $(obj).closest('tr').find('#dueDate').attr("disabled", "disabled");
+                             toastr.success("PF Payments has paid successfully.");
+                             var url = '@Url.Action("PfPaymentDueFromCustomer", "Payment")';
+                             window.location.href = url;
+                         }
+                     });
+        }*@
+
+
+
+
+    </script>
+}

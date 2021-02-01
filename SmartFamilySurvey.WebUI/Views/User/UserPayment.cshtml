@@ -1,0 +1,267 @@
+﻿
+@{
+    ViewData["Title"] = "User Payment";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+}
+
+
+<style>
+    main{
+        min-height:100% !important;
+    }
+    body{
+        height: 100% !important;
+    }
+
+    .topHeader {
+        padding-top: 25px;
+    }
+
+    .pointsDiv {
+        font-family: Gilroy-Bold;
+        font-size: 32px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 0.94;
+        letter-spacing: normal;
+        text-align: left;
+        color: #282925;
+    }
+
+    .popuptitle {
+        font-size: 16px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.19;
+        letter-spacing: normal;
+        text-align: center;
+        color: #282925;
+    }
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="text-center SurveyTitle">Точки</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="/user/PendingPaymentList" class="pl-3">Чакащи одобрение плащания</a>
+            </li>
+            @*<li>
+                <a href="/user/ArchivePaymentList"> archive payments</a>
+            </li>*@
+        </ul>
+    </div>
+</div>
+
+<div class="wrapper w-100">
+    <div class="BodyContent surveydetailview bg-white h-100 pl-3">
+        <div class="bg-white">
+            <div class="d-flex justify-content-between pr-5 topHeader pl-4">
+                <div>
+                    <div class="d-flex">
+                        <div class="mr-3 pt-1">
+                            <img src="~/Assets/Payment_icon.svg" />
+                        </div>
+                        <div class="MainTitle">
+                            <h4 class="text-themegreen mb-1">Статус на плащанията </h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="mt-3">
+            <div class="d-flex">
+                <div class="col-md-7 px-0 shadow-sm">
+                    <div class="">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span class="surverdetailsmalltitle px-4 py-3 d-block"><span id="spPaymentRequest">Брой запитвания: </span> <span id="spCount">0</span></span>
+                            </div>
+                            <div class="w-25 align-self-center pr-4 ">
+                                <select class="form-control form-control-sm" id="drpStatus">
+                                    <option value="">Всички</option>
+                                    <option value="Pending">Чакащи</option>
+                                    <option value="Approved">Одобрени</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-2" id="divUserSurvey">
+                            <partial name="/Views/User/_UserPayment.cshtml" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="theme-lighgreen position-relative addnewpoolbox  ">
+                        <div class="addnewPooldiv theme-lighgreen text-center px-0 ">
+                            <img src="~/Assets/Logo_half_grey.svg" class="img-fluid mb-3 w-25" />
+                            @*<img src="~/Assets/Bee_magnifying_glass.svg" class="img-fluid mb-3" />*@
+                            @if (ViewBag.userInfo != null)
+                            {
+                                <p class="pointsDiv text-center mb-5"> <span id="spCreditPoints">@ViewBag.userInfo.CurrentCreditPoints</span>  точки</p>
+                                @if (ViewBag.surveryInfo != null)
+                                {
+                                    if (@ViewBag.surveryInfo.CompletedDate != null)
+                                    {
+                                        <p class="subtitleforpoolbox text-center"> Последно обновени:  @ViewBag.surveryInfo.CompletedDate.Day <span>/</span>@ViewBag.surveryInfo.CompletedDate.Month <span>/</span> @ViewBag.surveryInfo.CompletedDate.Year</p>
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <p class="pointsDiv text-center mb-5"> 0 точки</p>
+
+                            }
+
+
+                            <button class="m-0 themeBtn font-12 " data-toggle="modal" data-target="#requestPaymentPopup">Заявка за плащане</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="requestPaymentPopup" tabindex="-1" role="dialog" aria-labelledby="addNewPoolBtn" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-body p-0">
+                <div class="pb-2 px-2 pt-0">
+                    <div class="text-right">
+                        <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                    </div>
+                    <div class="text-center">
+                        <img src="~/Assets/Bee_bulb.svg" />
+                        <p class="popuptitle font-gbold mb-0 mt-3">Заявка за плащане</p>
+                    </div>
+                    <div class="px-5 mt-3">
+                        <div class="form-group  text-center">
+                            <label class="font-gbold">Колко точки да бъдат конвертирани? (10 точки = 5 евро)</label>
+                            <input type="text" class="themecustomInput font-gmedium" value="50" id="txtPoints" />
+                        </div>
+                        <div class=" mb-1">
+                            <label class="font-gbold">Вид плащане</label>
+                            <div class="custom-control themecheckbox custom-checkbox newsingup">
+                                <input type="checkbox" class="custom-control-input" id="newPoolcheck2">
+                                <label class="custom-control-label font-12 font-gregular" for="newPoolcheck2">Ваучер</label>
+                            </div>
+                            <div class="custom-control themecheckbox custom-checkbox newsingup">
+                                <input type="checkbox" class="custom-control-input" id="newPoolcheck3">
+                                <label class="custom-control-label font-12 font-gregular" for="newPoolcheck3">Банков трансфер</label>
+                            </div>
+                        </div>
+                        <div class=" mb-3 mt-3">
+                            <button class="themeBtn m-0 btn-sm btn-block py-2 font-10 px-2" id="btnSend">Изпращане</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('main').removeClass('h-100');
+        $("#spCount").text($(".surveyPortal").length);
+    });
+
+    $(document).on('click', '#btnSend', function (e) {
+        e.preventDefault();
+        var Points = $('#txtPoints').val();
+        var ActualPoint = $("#spCreditPoints").text();
+        var paymentType = 1;
+
+        if (Number(Points) > Number(ActualPoint)) {
+            toastr.warning("Въведете валиден брой точки.");
+            return false;
+        }
+
+        if (Points == "" || Points == null || Points == undefined) {
+            //alert('please select points');
+            toastr.error("Въведете брой точки");
+            return false;
+        }
+
+        if ($('#newPoolcheck2').prop('checked') == false && $('#newPoolcheck3').prop('checked') == false) {
+            //alert('please select payment type');
+            toastr.error("Изберете вид плащане");
+            return false;
+        }
+
+        if ($('#newPoolcheck2').prop('checked') == true) {
+            paymentType = 1;
+        }
+
+        if ($('#newPoolcheck3').prop('checked') == true) {
+            paymentType = 2;
+        }
+
+        
+
+        $.ajax({
+            type: 'Post',
+            data: { points: Points, paymentType: paymentType },
+            dataType: 'html',
+            url: '/User/RequestPayment',
+            success: function (result) {
+               var url = '@Url.Action("Message", "User")';
+                         window.location.href = url;
+
+            }, error: function (xhr) {
+
+            }
+        });
+
+
+    });
+
+    $("#drpStatus").change(function () {
+
+        var value = $(this).val();
+        $("body").addClass("ShowLoader");
+
+
+        $.ajax({
+            type: 'Post',
+            data: { PaymentType: value },
+            dataType: 'html',
+            url: '/User/UserPaymentType',
+            success: function (result) {
+                $('#divUserSurvey').html(result);
+
+                $("#spCount").text($(".surveyPortal").length);
+
+                if (value == "" || value == undefined || value == null) {
+                    $("#spPaymentRequest").text("All payments request: ");
+                }
+
+                if (value == "Pending") {
+                    $("#spPaymentRequest").text("Pending payments request: ");
+                }
+
+                if (value == "Approved") {
+                    $("#spPaymentRequest").text("Approved payments request: ");
+                }
+
+            }, error: function (xhr) {
+
+            }
+        });
+
+        $("body").removeClass("ShowLoader");
+    });
+
+
+
+
+
+</script>

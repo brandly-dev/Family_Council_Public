@@ -1,0 +1,48 @@
+﻿@using ESS.SFS.DAL; 
+
+@if (ViewBag.lstPayments != null)
+{
+    <div class="border-top">
+        @{ 
+            int i = 1;
+        }
+        @foreach (var item in ViewBag.lstPayments as List<TblPayment>)
+        {
+            <div class=" border-bottom ">
+                <div class="surveyPortal shadow-none">
+                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 px-4">
+                        <div class="d-flex">
+                            <div class="">
+                                <div class="survecount d-inline-block font-gmedium font-10">@i</div>
+                            </div>
+                            <div class=" pt-1">
+                                @*<p class="portletSurveyTitle mb-0 font-12 ">Survey name</p>*@
+                                <p class="font-12 mutedtext mb-1">
+                                    <span class="border-right pr-2 font-10 font-gregular">@item.RequestedDate.Value.ToShortDateString()</span>
+                                    <span class="border-right px-2 font-10 font-gregular">@item.PaymentMethod</span>
+                                </p>
+                                <div class="pb-1">
+                                    <small class="font-10 font-gmedium">requested points: <span class="text-themegreen">@item.RequestedPoints</span></small>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+                            @if (item.Status == "Pending")
+                            {
+                                <p class="text-themegreen font-12 font-gmedium">Изчаква се одобрение от администратора</p>
+                            }
+                            else
+                            {
+                                <p class="text-themegreen font-12 font-gmedium">Одобрено</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            i++;
+        }
+
+    </div>
+}

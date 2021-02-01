@@ -1,0 +1,300 @@
+﻿@model ESS.SFS.DAL.TblPool
+
+@{
+    ViewData["Title"] = "new pool";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    body{
+        height:100% !important;
+    }
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">участници</h3>
+        <ul class="Sidebarnav">
+            <li>
+                <a href="/pool/Participants">Участници</a>
+            </li>
+            <li class="active">
+                <a href="/pool/Poolstemplates">Запазени групи</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <form class="BusinessInfo h-100" id="formSubmit" action="/Pool/Index" method="post">
+        <div class="BodyContent h-100 ">
+            <section class="Section1  px-3">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="topHeader">
+                            <h4 class="text-themegreen text-center">Създайте нова група участници</h4>
+                            <p class="surveysubheading text-center">Изберете име и демографски характеристики на групата</p>
+                        </div>
+                        <div class="bg-white p-5">
+                            <div class="row">
+                                <div class="col-md-10 mx-auto">
+                                    <img src="~/Assets/Participants_pool.svg" class="w-100" />
+                                    @*<img src="~/Assets/Logo_half_grey.svg" class="p-5" />*@
+                                    <div>
+                                        <label class="mb-1">Име на групата</label>
+                                        @Html.TextBoxFor(x => x.PoolName, new { @type = "text", @class = "themecustomInput", placeholder = "Име на групата" })
+                                        <label id="errorPoolName" class="text-danger" style="display:none">Задължително поле</label>
+                                    </div>
+
+                                    <button class="themeBtn nextBtn w-100 " type="button">Продължи <img src="~/Assets/Arrow_next.svg" /></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="section2 d-none h-100 bg-white">
+                <div class="d-flex h-100">
+                    <div class="col-md-7">
+                        <div class="px-3">
+                            <h4 id="poolName" class="text-themegreen mt-4">Име на групата</h4>
+                            <p class="font-14  settingtitle">общи настройки на групата</p>
+                            <div class="portlet mb-2">
+                                <p class="portletTitle">Колко участници искате да включите в анкетата?</p>
+                                <div class="w-20">
+
+                                    @Html.TextBoxFor(x => x.Participant, new { @class = "form-control rounded-0", @type = "number" })
+                                </div>
+                            </div>
+                            @Html.HiddenFor(x=>x.AgeMin)
+                            @Html.HiddenFor(x=>x.AgeMax)
+                            @Html.HiddenFor(x=>x.CityIds)
+
+                            <div class="mb-2  demoimgdiv">
+                                <p class="font-14 font-gmedium  settingtitle m-22updown">демографски характеристики</p>
+                                <div class="portlet demofilterportlet py-3" style=" height: 188px; ">
+                                    <div class="d-flex h-100">
+                                        <div class="col-md-3 pr-0 demographic_img">
+                                            <img src="/Assets/Pool_left.svg" class="img-fluid h-100">
+                                        </div>
+                                        <div class="col-md-6 align-self-center px-0">
+                                            <p class="text-themegreen demographicpara font-14 ">
+                                                Изберете от демографските характеристики от панела в дясно, за да създадете група от участници в анкетата.
+                                            </p>
+                                        </div>
+                                        <div class="col-md-3 pr-0 demographic_img">
+                                            <img src="/Assets/Pool_right.svg" class="img-fluid h-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ShowFiltersDiv">
+                                <div class="agefilter filterdiv d-none" checkid="agecheck">
+                                    <p class="font-14  settingtitle m-22updown">Демографски характеристики</p>
+                                    <div class="portlet">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle">Възраст</p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">Изтриване на филтър</a>
+                                        </div>
+                                        <div class="">
+                                            @Html.TextBoxFor(x => x.AgeRange, new { @class = "ageslider", @name = "my_range" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cityfilter filterdiv d-none" checkid="citycheck">
+                                    <p class="font-14  settingtitle m-22updown">Демографски характеристики</p>
+                                    <div class="portlet mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle">Град</p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">Изтриване на филтър</a>
+                                        </div>
+                                        <div class="w-50">
+                                           
+                                            <select class="multiselectcities selectpicker multicityselect" data-actions-box="true" title="изберете град" multiple>
+                                                @foreach (var item in ViewBag.CityList)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="genderfilter filterdiv d-none" checkid="gendercheck">
+                                    <p class="font-14  settingtitle m-22updown">Демографски характеристики</p>
+                                    <div class="portlet mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle">Пол </p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">Изтриване на филтър</a>
+                                        </div>
+                                        <div class="w-50">
+                                            @Html.DropDownListFor(x => Model.Gender, new SelectList(ViewBag.GenderList, "Id", "Name"), new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Familyfilter filterdiv d-none" checkid="familycheck">
+                                    <p class="font-14  settingtitle m-22updown">Демографски характеристики</p>
+                                    <div class="portlet mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle">Семеен статус</p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">Изтриване на филтър</a>
+                                        </div>
+                                        <div class="w-50">
+                                            @Html.DropDownListFor(x => Model.FamilyStatus, new SelectList(ViewBag.FamilyStatusList, "Id", "Name"), new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button class="themeBtn w-25 Savebtn d-none" onclick="customSubmit(this);" type="button">създаване на група</button>
+                                @*<button class="themeBtn w-25 SendSurveyBtn" type="button"></button>*@
+                                <button class="themeBtnlight w-25 CancelBtn d-none" type="button">Отмяна</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 theme-lighgreen">
+                        <div class="checkboxsection">
+                            <p class="darkTitle font-14 mb-1">Демографски характеристики</p>
+                            <div class="d-flex">
+                                <div class="w-50">
+                                    <div class="custom-control themecheckbox custom-checkbox agecheckbox">
+                                        <input type="checkbox" class="custom-control-input " id="agecheck">
+                                        <label class="custom-control-label" for="agecheck">Възраст</label>
+                                    </div>
+                                    <div class="custom-control themecheckbox custom-checkbox gendercheckbox">
+                                        <input type="checkbox" class="custom-control-input" id="gendercheck">
+                                        <label class="custom-control-label" for="gendercheck">Пол</label>
+                                    </div>
+                                </div>
+                                <div class="w-50">
+                                    <div class="custom-control themecheckbox custom-checkbox citycheckbox">
+                                        <input type="checkbox" class="custom-control-input" id="citycheck">
+                                        <label class="custom-control-label" for="citycheck">Град</label>
+                                    </div>
+                                    <div class="custom-control themecheckbox custom-checkbox familycheckbox">
+                                        <input type="checkbox" class="custom-control-input" id="familycheck">
+                                        <label class="custom-control-label" for="familycheck">Семеен статус</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.multicityselect').selectpicker();
+        $('.ageslider').ionRangeSlider({
+            skin: "big",
+            type: "double",
+            min: 18,
+            max: 65,
+            from: 18,
+            to: 65,
+            grid: false
+        });
+        $('.agecheckbox').click(function () {
+            if ($('#agecheck').prop('checked')) {
+                $('.agefilter').removeClass('d-none')
+            } else {
+                $('.agefilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.gendercheckbox').click(function () {
+            if ($('#gendercheck').prop('checked')) {
+                $('.genderfilter').removeClass('d-none')
+            } else {
+                $('.genderfilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.citycheckbox').click(function () {
+            if ($('#citycheck').prop('checked')) {
+                $('.cityfilter').removeClass('d-none')
+            } else {
+                $('.cityfilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.familycheckbox').click(function () {
+            if ($('#familycheck').prop('checked')) {
+                $('.Familyfilter').removeClass('d-none')
+            } else {
+                $('.Familyfilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $(document).on('click', '.deleteFilterbtn', function () {
+            $(this).parents('.filterdiv').addClass('d-none');
+            var id = $(this).parents('.filterdiv').attr('checkid');
+            $('.checkboxsection').find('#' + id).prop('checked', false);
+            checkboxlength();
+        })
+        $(document).on('click', '.nextBtn', function () {
+            if ($('#PoolName').val()) {
+                $('#poolName').text($('#PoolName').val())
+                $('#errorPoolName').hide();
+                $('.section2').removeClass('d-none');
+                $('.Section1').addClass('d-none');
+            } else {
+                $('#errorPoolName').show();
+            }
+        })
+        $(document).on('change', '#PoolName', function () {
+            if ($('#PoolName').val()) {
+
+                $('#errorPoolName').hide();
+                //$('.section2').removeClass('d-none');
+                //$('.Section1').addClass('d-none');
+            } else {
+                $('#errorPoolName').show();
+            }
+        })
+        $(document).on('click', '.CancelBtn', function () {
+        
+                $('.section2').addClass('d-none');
+            $('.Section1').removeClass('d-none');
+            
+        })
+    })
+    function checkboxlength() {
+        if ($('.checkboxsection .custom-control-input:checked').length > 0) {
+            $('.demoimgdiv').addClass('d-none');
+            $('.Savebtn').removeClass('d-none');
+            $('.CancelBtn').removeClass('d-none');
+            $('.SendSurveyBtn').addClass('d-none');
+        } else {
+            $('.demoimgdiv').removeClass('d-none');
+
+            $('.Savebtn').addClass('d-none');
+            $('.SendSurveyBtn').removeClass('d-none');
+        }
+    }
+    function customSubmit(obj) {
+        //alert('zia')
+        if ($('#agecheck').prop("checked")) {
+
+            $('#AgeMin').val($('#AgeRange').data('ionRangeSlider').result.from)
+            $('#AgeMax').val($('#AgeRange').data('ionRangeSlider').result.to)
+        }
+        if ($('.multiselectcities:not(:first)').length> 0) {
+            $('#CityIds').val($('.multiselectcities:not(:first)').val().toString())
+           
+        }
+      
+        if (!$('#gendercheck').prop("checked")) {
+            $('#Gender').val(0);
+        }
+        if (!$('#familycheck').prop("checked")) {
+            $('#FamilyStatus').val(0);
+        }
+        $('#formSubmit').submit()
+
+    }
+</script>

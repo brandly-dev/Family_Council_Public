@@ -1,0 +1,270 @@
+﻿@model List<ESS.SFS.DAL.TblPoolSurvey>
+@{
+    ViewData["Title"] = "SurveyDetailedView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .checkboxespoolsection {
+        height: 300px;
+    }
+
+        .checkboxespoolsection::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        .checkboxespoolsection::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        .checkboxespoolsection::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            .checkboxespoolsection::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="/Survey/SurveyArchive">Активни</a>
+            </li>
+            <li><a href="/Survey/SurveyArchive">Архив</a></li>
+            <li><a href="/pool/Poolstemplates">Шаблони</a></li>
+
+            <li><a href="javascript:;">Google forms</a></li>
+        </ul>
+    </div>
+</div>
+<input value="@ViewBag.Id" type="hidden" id="SurveyId" />
+<div class="wrapper w-100">
+    <div class="BodyContent surveydetailview bg-white h-100 pl-3">
+        <div class="pt-5">
+            <a href="/Survey/ActiveSurveys" class="text-themegreen font-gregular"><i class="fal fa-angle-left"></i> Обратно към активните анкети</a>
+        </div>
+        <div class="mt-4">
+
+            @if (Model.Count > 0)
+            {
+            <h4 class="text-themegreen">@Model.FirstOrDefault().Survey.Title</h4>
+                <p class="subtitle">Оставащо време: @((@Model.FirstOrDefault().Survey.DueDate.Value.Date - System.DateTime.Now.Date).TotalDays) дни</p>
+
+            }
+            else
+            {
+        <p class="subtitle">Оставащо време: 5 дни</p>
+            }
+
+        </div>
+
+        <div class="mt-5">
+            <div class="d-flex">
+                <div class="col-md-7 px-0 shadow-sm">
+                    <div class="">
+                        @if (Model.Count > 0)
+                        {
+                            <span class="surverdetailsmalltitle px-4 py-3 d-block">participants: @Model.FirstOrDefault().Survey.Participants</span>
+                        }
+                        else
+                        {
+                            <span class="surverdetailsmalltitle px-4 py-3 d-block">Участници: 0</span>
+                        }
+                        <div class="">
+                            @{
+                                int counter = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                counter = counter + 1;
+                                <div class="border-top border-bottom ">
+                                    <div class="surveyPortal shadow-none">
+                                        <div class="d-flex justify-content-between pt-3 pb-2 px-4">
+                                            <div class="d-flex">
+                                                <div class="">
+                                                    <div class="survecount d-inline-block font-10">@counter</div>
+                                                </div>
+                                                <div class=" pt-1">
+                                                    <p class="portletSurveyTitle mb-2 font-12">@item.PoolTemplate.PoolName</p>
+                                                    <p class="font-12 mutedtext mb-2">
+
+
+
+
+                                                        @if (item.PoolTemplate.AgeMax.HasValue)
+                                                        {
+                                                            <span class="border-right font-gregular pr-2">@item.PoolTemplate.AgeMin-@item.PoolTemplate.AgeMax</span>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(item.PoolTemplate.CityName))
+                                                        {
+                                                            <span class="border-right font-gregular px-2">@item.PoolTemplate.CityName</span>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(item.PoolTemplate.FamilySName))
+                                                        {
+                                                            <span class="border-right font-gregular px-2">@item.PoolTemplate.FamilySName</span>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(item.PoolTemplate.GenderName))
+                                                        {
+                                                            <span class=" font-gregular px-2">@item.PoolTemplate.GenderName</span>
+                                                        }
+                                                    </p>
+                                                    <div class="pb-3">
+                                                        <small class="font-10 font-gmedium">Участници попълнили анкетата: <span class="text-themegreen">@item.TblUserSurvey.Where(x => x.IsCompleted == true).Count()</span></small>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            @*<div>
+                                                <a href="javascript:;"  data-toggle="modal" data-target="#deleteModal" class="text-themegreen font-gmedium font-12">delete</a>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="theme-lighgreen position-relative addnewpoolbox  ">
+                        <div class="addnewPooldiv theme-lighgreen text-center px-0 w-50">
+                            <img src="~/Assets/Bee_magnifying_glass.svg" class="img-fluid mb-3" />
+                            <p class="subtitleforpoolbox text-center"> Добавяне на нова група участници</p>
+                            <button class="m-0 themeBtn font-12 " data-toggle="modal" data-target="#addNewPoolBtn">Добавяне</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addNewPoolBtn" tabindex="-1" role="dialog" aria-labelledby="addNewPoolBtn" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-body p-0">
+                <div class="pb-2 px-2 pt-0">
+                    <div class="text-right">
+                        <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                    </div>
+                    <div class="">
+                        <div class="px-2 mb-2">
+                            <p class="addnewpoolmodaltitle mb-0">Изберете група участници</p>
+                            <div class="AddTagsdiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkboxespoolsection overflow-auto">
+                    @foreach (var item in @ViewBag.PoolList)
+                    {
+                        <div class="border-top selectabledivoncheck  px-2">
+                            <div class="px-2 d-flex">
+                                <input type="hidden" id="hfId" value="@item.Id" />
+                                <div class="col-md-1 px-0 align-self-center">
+                                    <div class="custom-control themecheckbox custom-checkbox newPoolcheckbox">
+                                        <input type="checkbox" class="custom-control-input checkPoll" id="@item.Id">
+                                        <label class="custom-control-label" for="@item.Id"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-11 pl-0">
+                                    <div class="py-2">
+                                        <p class="portletSurveyTitle  font-12 mb-0"> @item.PoolName</p>
+                                        <p class="font-10 mutedtext mb-0">
+                                            Брой участници: @item.Participant
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="border-top text-right p-3 px-3 d-flex justify-content-end">
+                    <button class="themeBtnlight m-0 py-1 font-10 px-2 mr-2" data-dismiss="modal"> Отмяна</button>
+                    <button class="themeBtn m-0 btn-sm py-1 font-10 px-2 " onclick="sendServey();">Добавяне</button>
+                </div>
+            </div>
+            <input type="hidden" value="" id="selectedPool" />
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-body p-2">
+                <div class="text-right">
+                    <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                </div>
+                <div class="px-4">
+                    <div class="text-center mb-3">
+                        <img src="~/Assets/Bee_bulb.svg" class="img-fluid" />
+                    </div>
+                    <div class="modaldarktitle text-center mb-4">
+                        <p class="darkTitle">Искате ли да продължите?</p>
+                        @*<p class="surveysubheading text-center pb-2">after you press "send" the participants will receive an email with the survey.</p>*@
+                    </div>
+                    <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
+                        <button class="themeBtnlight m-0" id="btnDelete">Да</button>
+                        <button class="themeBtn m-0" data-dismiss="modal" aria-label="Close">Не</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function sendServey() {
+        var ids = [];
+        $(".checkPoll").each(function (index) {
+            if ($(this).prop('checked')) {
+                console.log("true");
+                //if (ids == "") {
+                ids.push($(this).parents('.selectabledivoncheck').find('#hfId').val())
+                console.log('if ' + ids)
+
+                //} else {
+                //    //ids = ids + ',' + $(this).parents('.selectabledivoncheck').find('#hfId').val();
+                //    ids.push($(this).parents('.selectabledivoncheck').find('#hfId').val())
+                //    console.log('else ' + ids)
+                //}
+            }
+
+        });
+        $.post("/Survey/SendServey",
+            data = {
+                PoolIds: ids.toString(),
+                SurveyId: $('#SurveyId').val()
+            },
+
+            function (data) {
+
+                toastr.success("New pool has been added successfully!");
+                window.location.reload();
+            });
+    }
+    $(document).ready(function () {
+        $('.newPoolcheckbox').find('input').change(function () {
+            if ($(this).prop('checked')) {
+                $(this).parents('.selectabledivoncheck').addClass('checbacklightgrey');
+                $('.AddTagsdiv').append('<span class="tagsspan mr-2" divid=' + $(this).attr('id') + '>' + $(this).parents('.selectabledivoncheck').find('.portletSurveyTitle').text() + '<a href="javascript:;" class=" text-dark removetagBtn"><i class="fa fa-times"></i></a></span>')
+            } else {
+                $(this).parents('.selectabledivoncheck').removeClass('checbacklightgrey');
+                $('.AddTagsdiv').find('.tagsspan[divid=' + $(this).attr('id') + ']').remove();
+            }
+        })
+        $(document).on('click', '.removetagBtn', function () {
+            $('.checkboxespoolsection').find('input[id=' + $(this).parent().attr('divid') + ']').trigger('click');
+            $(this).parent().remove();
+        })
+    })
+</script>

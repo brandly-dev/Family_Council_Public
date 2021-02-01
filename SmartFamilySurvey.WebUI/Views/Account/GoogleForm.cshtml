@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewData["Title"] = "GoogleForms";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+ <div>
+     <p><button onclick="send();">send</button></p>
+     <p>Answer</p>
+     <p id="answerbox"></p>
+ </div>
+<script>
+    //var testsocket = new WebSocket("wss://localhost:44312/ws");
+    var testsocket = new WebSocket("ws://toakhtar-001-site3.dtempurl.com/ws");
+    testsocket.onmessage = function (e) {
+      //  $('#answerbox').innerHtml += "\n Recieved:" + e.data;
+        $('#answerbox').text($('#answerbox').text() + "\n Recieved:" + e.data)
+    }
+    function send() {
+        testsocket.send("testing")
+    }
+</script>
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>GoogleForm</title>
+    </head>
+    <body>
+
+        <div id='ff-compose'></div>
+        <script async defer src='https://formfacade.com/include/111125699878020615623/form/1NSR1fKSjWSz1dqqPpzaACuwcdVl6Lx05UCIx6HfnEnE/classic.js?div=ff-compose'>
+        </script>
+        <script>
+
+
+            //$(document).ready(function () {
+            //    setTimeout(function (){
+            //        var iFrameDOM = $("iframe#reportArea").contents();
+            //        var d = SearchDashboard(iFrameDOM);
+            //        debugger
+            //    }, 2000)
+
+            //});
+
+            //$(document).ready(function () {
+            //    window.onclick = function (e) {
+            //        console.log("clicking")
+            //        if (e.isGETorPOST) {
+            //            console.log("testing")
+            //        }
+
+            //    //alert('cleaning')
+            //    //cleanit = setInterval(function () {
+            //    //    console.log('cleaning')
+            //    //    if ($('iframe#reportArea').contents().find('.freebirdFormviewerViewEmbedded').html()) {
+            //    //        alert(1);
+            //    //        clearInterval(cleanit);
+            //    //        $('#selector').contents().find('.Link').html('ideate tech');
+            //    //    }
+            //    //}, 500);
+
+            //});
+
+            window.onclick = function (e) {
+                console.log("clicking")
+                if (e.isGETorPOST) {
+                    console.log("testing")
+                }
+            }
+            //function zia() {
+            //    alert("waqar ne kia")
+            //}
+            //$('iframe').load(function () {
+            //    $(this).contents().find('#mG61Hd').submit(function () {
+            //        alert("submited")
+            //        return true; //return false prevents submit
+            //    });
+            //});
+            function SearchDashboard(iFrameDOM) {
+                var dashboard = '';
+                if (iFrameDOM.find('#mG61Hd').length > 0) {
+                    dashboard = "Dashboard";
+                }
+                else {
+                    dashboard = "other";
+                }
+                return dashboard;
+            }
+            $(window).on('onclick', 'body', function () {
+                alert("1");
+            })
+                        //MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+                        //var observer = new MutationObserver(function (mutations, observer) {
+                        //    // fired when a mutation occurs
+                        //    console.log(mutations.target.innerHTML)
+                        //    console.log(mutations, observer);
+                        //    // ...
+                        //});
+
+                        //// define what element should be observed by the observer
+                        //// and what types of mutations trigger the callback
+                        //observer.observe(document, {
+                        //    subtree: true,
+                        //    attributes: true
+                        //    //...
+                        //});
+
+        </script>
+    </body>
+    </html>*@
+

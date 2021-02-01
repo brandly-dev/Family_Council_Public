@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Sent";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+}
+
+
+<div class="w-15 bg-themebrown">
+    <div class="">
+        <h3 class="SurveyTitle">points</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="/user/PendingPaymentList" class="pl-3">Плащания</a>
+            </li>
+            @*<li><a href="/User/ArchiveUser">archive</a></li>*@
+
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="BodyContent h-100 position-relative">
+        <div class="showincenter text-center">
+            <img src="~/Assets/Sent_successful.svg" />
+            <h3 class="darkTitle text-center mb-1">Изпратена е заявка за одобрение</h3>
+            <p class="subsuccesshead text-center mb-4"></p>
+            <a href="/User/PendingPaymentList" class="m-0 themeBtn text-white font-12 px-4"> <span class="px-3">Към страницата с плащания</span> </a>
+        </div>
+    </div>
+</div>

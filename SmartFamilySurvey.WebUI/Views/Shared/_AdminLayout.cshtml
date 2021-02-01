@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link href="https://rawcdn.githack.com/hung1001/font-awesome-pro/8af0edd/css/all.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="icon" href="~/Assets/favicon.png" type="image/png" sizes="16x16">
+
+
+</head>
+<body>
+    <div class="Loaderdiv">
+        <img src="~/Assets/Loader.gif" />
+    </div>
+    <div class="d-flex align-items-stretch h-100">
+        <div class="w-5 bg-white position-relative">
+            <div class="d-flex h-100vh flex-column sticksidebar justify-content-between">
+                <div>
+
+                    <div class="text-center pt-3 pb-5">
+                        <img src="~/Assets/Logo_small.svg" class="img-fluid" />
+                    </div>
+
+                    @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("ActiveSurveys") || HttpContextAccessor.HttpContext.Request.Path.Value.Contains("SurveyArchive") || HttpContextAccessor.HttpContext.Request.Path.Value.Contains("googleForm") || HttpContextAccessor.HttpContext.Request.Path.Value.Contains("successScreen"))
+                    {
+                        <div class="text-center pb-3 ">
+                            <a href="/Survey/ActiveSurveys"><img src="~/Assets/Nav_questionnaire_green.svg" class="img-fluid" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center pb-3">
+                            <a href="/Survey/ActiveSurveys"><img src="~/Assets/Nav_questionnaire.svg" class="img-fluid" /></a>
+                        </div>
+                    }
+
+                    @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("Participants") || HttpContextAccessor.HttpContext.Request.Path.Value.Contains("Poolstemplates") || HttpContextAccessor.HttpContext.Request.Path.Value.Contains("Pool"))
+                    {
+                        <div class="text-center pb-3">
+                            <a href="/pool/Participants"> <img src="~/Assets/Nav_groups-members_green.svg" class="img-fluid text-themegreen" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center pb-3">
+                            <a href="/pool/Participants"> <img src="~/Assets/Nav_groups-members.svg" class="img-fluid text-themegreen" /></a>
+                        </div>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("PendingPaymentList") || HttpContextAccessor.HttpContext.Request.Path.Value.Contains("ArchivePaymentList"))
+                    {
+                        <div class="text-center pb-3">
+                            <a href="/user/PendingPaymentList"><img src="~/Assets/Nav_payment_green.svg" class="img-fluid" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center pb-3">
+                            <a href="/user/PendingPaymentList"><img src="~/Assets/Nav_payment.svg" class="img-fluid" /></a>
+                        </div>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("AdminProfile"))
+                    {
+                        <div class="text-center pb-3">
+                            <div class="letterHere">
+                                <a href="/user/AdminProfile"><i class="fad fa-user usericon active"></i></a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center pb-3">
+                            <div class="letterHere">
+                                <a href="/user/AdminProfile"><i class="fad fa-user usericon"></i></a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="USerNameLetter text-center pb-3">
+                    <div class="letterHere "><a href="/Account/Logout"><i class="fal fa-power-off"></i></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="w-95 theme-lighgreen">
+            <main role="main" class="d-flex min-he">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,611 @@
+﻿@model ESS.SFS.DAL.TblPoolSurvey
+@{
+    ViewData["Title"] = "New Survey";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+   /* body {
+        height: 100% !important;
+    }*/
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="/Survey/ActiveSurveys">Активни</a>
+            </li>
+            <li><a href="/Survey/SurveyArchive">Архив</a></li>
+            <li><a href="/googleForm/Index">Google forms</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100 h-100">
+    <form class="BusinessInfo h-100" id="formSubmit" action="/Survey/Index" method="post">
+        <div class="BodyContent  h-100 ">
+            <section class="Section1 pb-3  px-3">
+                <div class="row">
+                    <div class="col-md-5 mx-auto">
+                        <div class="topHeader">
+                            <h4 class="text-themegreen text-center mb-1">Създаване на анкета</h4>
+                            <p class="surveysubheading text-center">Изберете име и шаблон от Google, който да използвате</p>
+                        </div>
+                        <div class="bg-white pb-5 px-5 mt-56">
+                            <div class="text-center">
+                                <img src="~/Assets/Logo_half_grey.svg" class="marginBottomImg" />
+                                <h6 class="px-5 text-center mt-3">Изберете параметри на анкета</h6>
+                            </div>
+                            @Html.HiddenFor(x => x.PoolTemplate.AgeMin)
+                            @Html.HiddenFor(x => x.PoolTemplate.AgeMax)
+                            @Html.HiddenFor(x => x.PoolTemplate.CityIds)
+                            @Html.HiddenFor(x => x.IsSendToAll)
+                            @Html.HiddenFor(x => x.IsNewTemplate)
+                            <div class="row mt-3">
+                                <div class="col-md-10 mx-auto">
+                                    <div class="mb-2">
+                                        <label class="mb-1">Заглавие на анкетата</label>
+                                        @Html.TextBoxFor(x => x.Survey.Title, new { @placeholder = "Заглавие", @class = "themecustomInput clvalidate" })
+                                        <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="mb-1">Брой точки</label>
+                                        @Html.TextBoxFor(x => x.Survey.Points, new { @placeholder = "точки", @class = "themecustomInput clvalidate", @type = "number" })
+                                    <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="mb-1">Изберете Google Forms шаблон</label>
+                                        @Html.DropDownListFor(x => x.Survey.FormId, new SelectList(ViewBag.FormList, "Id", "Name"),"Google Forms", new { @class = "themecustomInput text-dark clvalidate" })
+                                    <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label class="mb-1">Краен срок</label>
+                                      
+
+                                       
+                                        <div class="position-relative ">
+                                            @Html.TextBoxFor(x => x.Survey.DueDate, new { @placeholder = "Краен срок", @class = "themecustomInput clvalidate datepicker" })
+                                            <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
+                                            <i class="datepickericon"><img class="datepickericon" src="/Assets/calendar.svg" alt="Alternate Text" /></i>
+                                        </div>
+                                    </div>
+
+                                    <button class="themeBtn nextBtn w-100 mt-3" type="button">продължи <img src="~/Assets/Arrow_next.svg" /></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section class="section2 d-none h-100 bg-white">
+                <div class="d-flex h-100">
+                    <div class="col-md-7  pb-3">
+                        <div class="px-3">
+                            <h4 id="poolName" class="text-themegreen mt-4">Заглавие на анкетата</h4>
+                            <div>
+                                <p class="font-14  settingtitle"> google forms шаблон</p>
+                                <div class="portlet mb-2">
+                                    <p class="portletTitle mb-0" id="pFormName"> google forms шаблон</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="formstext mb-0" id="pFormDueDate">Краен срок: 4.12.2020</p>
+                                        <div class="custom-control themecheckbox custom-checkbox googleformcheckbox p-0" style="margin-top:-10px;">
+                                            <input type="checkbox" class="custom-control-input" checked="checked" id="googleformcheckbox">
+                                            <label class="custom-control-label" for="googleformcheckbox"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 genralsettingdiv">
+                                <p class="font-14  settingtitle mt-3"> Настройки</p>
+                                <div class="portlet mb-2">
+                                    <p class="portletTitle"> Брой участници</p>
+                                    <div class="w-20">
+                                        @Html.HiddenFor(x => x.PoolTemplate.Participant)
+                                        <input type="number" id="participents" class="form-control rounded-0" value="20" />
+                                    </div>
+                                    <p class="portletTitle mt-2"> Име на групата от участници</p>
+                                    <div class="w-50">
+                                        @Html.TextBoxFor(x => x.PoolTemplate.PoolName, new { @class = "form-control rounded-0 " })  @*clvalidateP2*@
+                                        <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2 pooltemplatediv d-none">
+                                <p class="font-14  settingtitle mt-3"> Запазени групи</p>
+                                <div class="portlet mb-2">
+                                    <p class="portletTitle"> Изберете от запазените групи</p>
+                                    <div class="w-50">
+                                        @Html.DropDownListFor(x => x.PoolTemplateId, new SelectList(ViewBag.PoolList, "Id", "PoolName"), "select", new { @class = "form-control" })
+                                        <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2  demoimgdiv">
+                                <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
+                                <div class="portlet demofilterportlet py-3" style=" height: 188px; ">
+                                    <div class="d-flex h-100">
+                                        <div class="col-md-3 pr-0">
+                                            <img src="/Assets/Pool_left.svg" class="img-fluid h-100">
+                                        </div>
+                                        <div class="col-md-6 align-self-center px-0">
+                                            <p class="text-themegreen demographicpara font-14 ">
+                                                Изберете от демографските характеристики от панела в дясно, за да създадете група от участници в анкетата.
+                                            </p>
+                                        </div>
+                                        <div class="col-md-3 pr-0">
+                                            <img src="/Assets/Pool_right.svg" class="img-fluid h-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ShowFiltersDiv">
+                                <div class="agefilter filterdiv d-none" checkid="agecheck">
+                                    <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
+                                    <div class="portlet mb-2">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle mb-2"> Възраст</p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
+                                        </div>
+                                        <div class="">
+                                            @Html.TextBoxFor(x => x.PoolTemplate.AgeRange, new { @class = "ageslider", @name = "my_range", @disabled = false })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cityfilter filterdiv d-none" checkid="citycheck">
+                                    <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
+                                    <div class="portlet mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle mb-2"> Град </p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
+                                        </div>
+                                        <div class="w-50">
+                                            <select class=" selectpicker multicityselect disabled" data-actions-box="true" title="Please Select" multiple>
+                                                @foreach (var item in ViewBag.CityList)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="genderfilter filterdiv d-none" checkid="gendercheck">
+                                    <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
+                                    <div class="portlet mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle mb-2"> Пол</p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
+                                        </div>
+                                        <div class="w-50">
+                                            @Html.DropDownListFor(x => x.PoolTemplate.Gender, new SelectList(ViewBag.GenderList, "Id", "Name"), new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Familyfilter filterdiv d-none" checkid="familycheck">
+                                    <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
+                                    <div class="portlet mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="portletTitle mb-2"> Семеен статус</p>
+                                            <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
+                                        </div>
+                                        <div class="w-50">
+                                            @Html.DropDownListFor(x => x.PoolTemplate.FamilyStatus, new SelectList(ViewBag.FamilyStatusList, "Id", "Name"), new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button class="themeBtn w-25 Savebtn d-none" type="button">Запазване</button>
+                                <button class="themeBtn w-25 SendSurveyBtn" onclick="validateSecoundPage();"  type="button">Изпращане</button>
+                                <button class="themeBtnlight w-25 CancelBtn" type="button">Отмяна</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 theme-lighgreen">
+                        <div class="pannelOptioncheckboxesSection checkboxsection pb-4 ">
+                            <p class="darkTitle font-14 mb-1 mt-214px">pannel options</p>
+                            <div class="custom-control themecheckbox custom-checkbox newPoolcheckbox">
+                                <input type="radio" class="custom-control-input" checked id="newPoolcheck" name="pannelOption">
+                                <label class="custom-control-label" for="newPoolcheck">Създаване на нова група участници в анкетата</label>
+                            </div>
+                            <div class="custom-control themecheckbox custom-checkbox poolTemplatecheckbox">
+                                <input type="radio" class="custom-control-input" id="poolTemplatecheck" name="pannelOption">
+                                <label class="custom-control-label" for="poolTemplatecheck">Избиране на запазена група участници</label>
+                            </div>
+                            @*<div class="custom-control themecheckbox custom-checkbox registeredcheckbox d-none">
+                                <input type="checkbox" class="custom-control-input" id="registeredcheck">
+                                <label class="custom-control-label" for="registeredcheck">send the survey to all registered users</label>
+                            </div>*@
+                        </div>
+                        <div class="checkboxsection mt-5">
+                            <p class="darkTitle font-14 mb-1">Демографски характеристики</p>
+                            <div class="d-flex">
+                                <div class="w-50">
+                                    <div class="custom-control themecheckbox custom-checkbox agecheckbox">
+                                        <input type="checkbox" class="custom-control-input demographicChecked" id="agecheck">
+                                        <label class="custom-control-label" for="agecheck">Възраст</label>
+                                    </div>
+                                    <div class="custom-control themecheckbox custom-checkbox gendercheckbox">
+                                        <input type="checkbox" class="custom-control-input demographicChecked" id="gendercheck">
+                                        <label class="custom-control-label" for="gendercheck">Пол</label>
+                                    </div>
+                                </div>
+                                <div class="w-50">
+                                    <div class="custom-control themecheckbox custom-checkbox citycheckbox">
+                                        <input type="checkbox" class="custom-control-input demographicChecked" id="citycheck">
+                                        <label class="custom-control-label" for="citycheck">Град</label>
+                                    </div>
+                                    <div class="custom-control themecheckbox custom-checkbox familycheckbox">
+                                        <input type="checkbox" class="custom-control-input demographicChecked" id="familycheck">
+                                        <label class="custom-control-label" for="familycheck">Семеен статус</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="sendsurverpopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-body p-2">
+                <div class="text-right">
+                    <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                </div>
+                <div class="px-4">
+                    <div class="text-center mb-3">
+                        <img src="~/Assets/Bee_bulb.svg" class="img-fluid" />
+                    </div>
+                    <div class="modaldarktitle text-center mb-4">
+                        <p class="darkTitle">Сигурни ли сте, че искате да изпратите анкетата?</p>
+                        <p class="surveysubheading text-center pb-2">След като натиснете "Изпращане", участниците ще получат имейл с анкетата.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
+
+                        <button class="themeBtnlight m-0" onclick="cancelorder()">Отмяна</button>
+                        <button class="themeBtn m-0" onclick="customSubmit(this);">Изпращане</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('.CancelBtn').click(function () {
+            $('.section2').addClass('d-none');
+            $('.Section1').removeClass('d-none');
+        })
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: new Date()
+        });
+        $('.multicityselect').selectpicker({
+            format: 'dd/mm/yyyy',
+        }
+        );
+        $('.ageslider').ionRangeSlider({
+            skin: "big",
+            type: "double",
+            min: 18,
+            max: 65,
+            from: 18,
+            to: 65,
+            grid: false
+        });
+        $('.agecheckbox').click(function () {
+            if ($('#agecheck').prop('checked')) {
+                $('.agefilter').removeClass('d-none')
+            } else {
+                $('.agefilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.gendercheckbox').click(function () {
+            if ($('#gendercheck').prop('checked')) {
+                $('.genderfilter').removeClass('d-none')
+            } else {
+                $('.genderfilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.citycheckbox').click(function () {
+            if ($('#citycheck').prop('checked')) {
+                $('.cityfilter').removeClass('d-none')
+            } else {
+                $('.cityfilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.familycheckbox').click(function () {
+            if ($('#familycheck').prop('checked')) {
+                $('.Familyfilter').removeClass('d-none')
+            } else {
+                $('.Familyfilter').addClass('d-none')
+            }
+            checkboxlength();
+        });
+        $('.newPoolcheckbox').click(function () {
+            if ($('#newPoolcheck').prop('checked')) {
+                $('.genralsettingdiv').removeClass('d-none')
+                $('.pooltemplatediv').addClass('d-none')
+                var instance = $('.ageslider').data("ionRangeSlider");
+
+                instance.update({
+                    from_fixed: false,
+                    to_fixed: false
+                });
+                // zia
+                enableDemogrpich();
+                uncheckAll();
+            } else {
+                $('.genralsettingdiv').addClass('d-none')
+                $('.pooltemplatediv').removeClass('d-none')
+            }
+
+        });
+        $('.poolTemplatecheckbox').click(function () {
+            if ($('#poolTemplatecheck').prop('checked')) {
+                $('.pooltemplatediv').removeClass('d-none')
+                $('.genralsettingdiv').addClass('d-none')
+                GetPool(parseInt($('#PoolTemplateId').val()));
+                var instance = $('.ageslider').data("ionRangeSlider");
+
+                instance.update({
+                    from_fixed: true,
+                    to_fixed: true
+                });
+
+            } else {
+                $('.pooltemplatediv').addClass('d-none')
+                $('.genralsettingdiv').removeClass('d-none')
+                enableDemogrpich();
+
+            }
+
+        });
+        $(document).on('click', '.deleteFilterbtn', function () {
+            if (!$('#poolTemplatecheck').prop('checked')) {
+            $(this).parents('.filterdiv').addClass('d-none');
+            var id = $(this).parents('.filterdiv').attr('checkid');
+            $('.checkboxsection').find('#' + id).prop('checked', false);
+                checkboxlength();
+            }
+        })
+        $(document).on('click', '.nextBtn', function () {
+            var flag = false;
+
+            $('.clvalidate').each(function () {
+                if (!$(this).val()) {
+                    flag = true;
+
+                    $(this).next().show()
+                }
+            })
+            if (!flag) {
+                $('.section2').removeClass('d-none');
+                $('.Section1').addClass('d-none');
+                $('#poolName').text($('#Survey_Title').val());
+                $('#pFormName').text($("#Survey_FormId  option:selected").text())
+                var date = new Date($('#Survey_DueDate').val());
+                var newDate = date.toString('dd-MM-yy');
+                $('#pFormDueDate').text($('#Survey_DueDate').val())
+            }
+
+
+        })
+    })
+    function checkboxlength() {
+        if ($('.checkboxsection .custom-control-input:checked').length > 1) {
+            $('.demoimgdiv').addClass('d-none');
+            //$('.Savebtn').removeClass('d-none');
+            //$('.SendSurveyBtn').addClass('d-none');
+            $('.registeredcheckbox').removeClass('d-none');
+        } else {
+            $('.demoimgdiv').removeClass('d-none');
+            //$('.Savebtn').addClass('d-none');
+            //$('.SendSurveyBtn').removeClass('d-none');
+            $('.registeredcheckbox').addClass('d-none');
+
+        }
+    }
+    $(document).on('change', '#PoolTemplateId', function () {
+        GetPool(parseInt($(this).val()));
+    })
+    function GetPool(id) {
+        $.get("/Pool/GetPool",
+            data = {
+                Id: id,
+            },
+            function (data) {
+                if (data.status == "success") {
+                    enableDemogrpich()
+                    LoadPool(data.data)
+                }
+            });
+    }
+    function LoadPool(data) {
+        clearData(data)
+    }
+    function clearData(data) {
+
+        if (data.ageMax) {
+            if (!$('#agecheck').prop('checked')) {
+                $('#agecheck').trigger('click')
+
+            }
+            var instance = $('.ageslider').data("ionRangeSlider");
+
+            instance.update({
+                from: data.ageMin,
+                to: data.ageMax,
+                // [disable] : "rangeDisable"
+            });
+            //setTimeout(function () { $(".selectpicker").trigger('change'); }, 1000);
+
+        } else {
+            if ($('#agecheck').prop('checked')) {
+                $('#agecheck').trigger('click')
+            }
+        }
+        if (data.cityIds) {
+            if (!$('#citycheck').prop('checked')) {
+                $('#citycheck').trigger('click')
+
+            }
+            var list = data.cityIds.split(",")
+            $(".selectpicker option").prop("selected", false)
+            $.each(list, function (i, e) {
+                $(".selectpicker option[value='" + e + "']").prop("selected", true);
+            });
+            $(".selectpicker").trigger('change');
+        } else {
+            if ($('#citycheck').prop('checked')) {
+                $('#citycheck').trigger('click')
+            }
+        }
+        if (data.gender) {
+            if (!$('#gendercheck').prop('checked')) {
+                $('#gendercheck').trigger('click')
+            }
+            $('#PoolTemplate_Gender').val(data.gender.trim())
+        } else {
+            if ($('#gendercheck').prop('checked')) {
+                $('#gendercheck').trigger('click')
+            }
+        }
+        if (data.familyStatus) {
+            if (!$('#familycheck').prop('checked')) {
+                $('#familycheck').trigger('click')
+            }
+            $('#PoolTemplate_FamilyStatus').val(data.familyStatus.trim())
+        } else {
+            if ($('#familycheck').prop('checked')) {
+                $('#familycheck').trigger('click')
+            }
+        }
+        disableDemogrpich();
+    }
+    function disableDemogrpich() {
+        ;
+        $('#agecheck').prop('disabled', 'disabled');
+        $('#citycheck').prop('disabled', 'disabled');
+        $('#gendercheck').prop('disabled', 'disabled');
+        $('#familycheck').prop('disabled', 'disabled');
+        $('#ageslider').prop('disabled', 'disabled');
+        $('.selectpicker').attr('disabled', true);
+        $('.selectpicker').selectpicker('refresh');
+        $('#PoolTemplate_Gender').prop('disabled', 'disabled');
+        $('#PoolTemplate_FamilyStatus').prop('disabled', 'disabled');
+    }
+    function enableDemogrpich() {
+
+        $('#agecheck').removeAttr('disabled');
+        $('#citycheck').removeAttr('disabled');
+        $('#gendercheck').removeAttr('disabled');
+        $('#familycheck').removeAttr('disabled');
+        $('#ageslider').removeAttr('disabled');
+        $('.selectpicker').attr('disabled', false);
+        $('.selectpicker').selectpicker('refresh');
+        $('#PoolTemplate_Gender').removeAttr('disabled');
+        $('#PoolTemplate_FamilyStatus').removeAttr('disabled');
+    }
+    function uncheckAll() {
+        if ($('#agecheck').prop('checked')) {
+            $('#agecheck').trigger('click')
+        }
+        if ($('#citycheck').prop('checked')) {
+            $('#citycheck').trigger('click')
+        }
+        if ($('#gendercheck').prop('checked')) {
+            $('#gendercheck').trigger('click')
+        }
+        if ($('#familycheck').prop('checked')) {
+            $('#familycheck').trigger('click')
+        }
+    }
+    function customSubmit(obj) {
+        //alert('zia')
+        if ($('#agecheck').prop("checked")) {
+
+            $('#PoolTemplate_AgeMin').val($('#PoolTemplate_AgeRange').data('ionRangeSlider').result.from)
+            $('#PoolTemplate_AgeMax').val($('#PoolTemplate_AgeRange').data('ionRangeSlider').result.to)
+        }
+        if ($('.multicityselect:not(:first)').length > 0) {
+            $('#PoolTemplate_CityIds').val($('.selectpicker').val().toString())
+            //$('#PoolTemplate_CityIds').val($('.multiselectcities:not(:first)').val().toString())
+
+        }
+        if ($('#registeredcheck').prop("checked")) {
+            $('#IsSendToAll').val("true")
+        } else {
+            $('#IsSendToAll').val("false")
+        }
+        if ($('#newPoolcheck').prop("checked")) {
+            $('#IsNewTemplate').val("true")
+        } else {
+            $('#IsNewTemplate').val("false")
+        }
+        if (!$('#gendercheck').prop("checked")) {
+            $('#PoolTemplate_Gender').val(0);
+        }
+        if (!$('#familycheck').prop("checked")) {
+            $('#PoolTemplate_FamilyStatus').val(0);
+        }
+        $('#PoolTemplate_Participant').val($('#participents').val());
+
+        $('#formSubmit').submit()
+
+
+    }
+    function validateSecoundPage() {
+        var flag = false;
+        if ($('.demographicChecked:checked').length < 1) {
+            flag = true;
+            toastr.error("Изберете демографски характеристики на групата.");
+        }
+        if (!$('#PoolTemplate_PoolName').val()) {
+            $('.clvalidateP2').each(function () {
+                if (!$(this).val()) {
+                    flag = true;
+                    $(this).next().show()
+                }
+            });
+        }
+        if (!flag) {
+
+            $("#sendsurverpopup").modal('show');
+        }
+    }
+
+    $(document).on('change', '.clvalidate', function () {
+
+        if ($(this).val()) {
+            $(this).next().hide();
+        } else {
+            $(this).next().show();
+        }
+
+
+    });
+    $(document).on('change', '.clvalidateP2', function () {
+
+        if ($(this).val()) {
+            $(this).next().hide();
+        } else {
+            $(this).next().show();
+        }
+
+
+    });
+
+    function cancelorder() {
+        $("#sendsurverpopup").modal('hide');
+    }
+</script>

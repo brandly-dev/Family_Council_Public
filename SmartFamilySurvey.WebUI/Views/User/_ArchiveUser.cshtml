@@ -1,0 +1,54 @@
+﻿
+@using ESS.SFS.Helper;
+@using ESS.SFS.DAL;
+
+@if (ViewBag.lstActiveSurveyUser != null)
+{
+    @if (ViewBag.lstActiveSurveyUser.lstSurvey != null && ViewBag.lstActiveSurveyUser.lstSurvey.Count > 0)
+    {
+        foreach (var item in ViewBag.lstActiveSurveyUser.lstSurvey as List<TblUserSurvey>)
+        {
+
+            var survey = @item.Survey != null ? @item.Survey : null;
+
+            <div class="surveyPortal mb-3">
+                <div class="d-flex justify-content-between pt-3 pb-2 px-4 align-items-center">
+                    <div class="d-flex">
+                        <div class=" pt-1">
+                            <p class="portletSurveyTitle mb-1">@survey.Title</p>
+                            <p class="font-12 mutedtext mb-2 font-gregular">Краен срок: @survey.DueDate.Value.ToString("MM/dd/yyyy") </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.lstActiveSurveyUser.PageCount > 0)
+        {
+            @for (var p = 1; p <= ViewBag.lstActiveSurveyUser.PageCount; p++)
+            {
+               
+            }
+        }
+
+
+<div class="text-right">
+    @if (ViewBag.lstActiveSurveyUser.PageCount > 0)
+    {
+        @for (var p = 1; p <= ViewBag.lstActiveSurveyUser.PageCount; p++)
+        {
+            if (p == ViewBag.PageIndex)
+            {
+                <a href="@Url.Action("ArchiveUser","User", new { fd = @ViewBag.FromDate, td = @ViewBag.ToDate, pg = p, ps = ViewBag.PageSize  })" class="paggerDefault active">@p</a>
+            }
+            else
+            {
+                <a href="@Url.Action("ArchiveUser","User", new { fd = @ViewBag.FromDate, td = @ViewBag.ToDate, pg = p, ps = ViewBag.PageSize  })" class="paggerDefault">@p</a>
+            }
+
+        }
+    }
+</div>
+    }
+}

@@ -1,0 +1,152 @@
+﻿@model List<ESS.SFS.DAL.TblSurvey>
+@{
+    ViewData["Title"] = "ArchiveSurvey";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li><a href="/Survey/ActiveSurveys">Активни</a></li>
+            <li class="active"><a href="/Survey/SurveyArchive">Архив</a></li>
+            <li><a href="/googleForm/Index">Google forms</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="bg-white">
+        <div class="d-flex justify-content-between px-5 topHeader">
+            <div>
+                <div class="d-flex">
+                    <div class="mr-2">
+                        <img src="~/Assets/Bee_bubble.svg" />
+                    </div>
+                    <div class="MainTitle">
+                        <h4 class="text-themegreen mb-1"> Архив на анкетите</h4>
+                        <p class="font-12">Брой архивирани анкети: <span class="text-themegreen">@ViewBag.list.rowCount</span> </p>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-2">
+                <div class="has-search position-relative">
+                    <img src="~/Assets/Search_icon.svg" class="searchicon" />
+                    <input type="text" id="searchText" placeholder="Търсене" class="customSearchfield font-gmedium" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="partial">
+        @Html.Partial("~/Views/Survey/_SurveyArchive.cshtml", @Model)
+    </div>
+    </div>
+    <div class="modal fade" id="resendPopup" tabindex="-1" role="dialog" aria-labelledby="resendPopup" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+            <div class="modal-content rounded-0">
+                <div class="modal-body p-0">
+                    <div class="pb-2 px-2 pt-0">
+                        <div class="text-right">
+                            <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                        </div>
+                        <div class="">
+                            <div class="px-2 mb-2">
+                                <h3 class="addnewpoolmodaltitle font-14 mb-0">Повторно изпращане</h3>
+                                <div class="AddTagsdiv">
+                                    <div class="form-group">
+                                        <label>Краен срок</label>
+                                        <input id="dueDate" class="themecustomInput datepicker " />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedSurvey" value="" />
+                    <div class="border-top text-right p-3 px-3 d-flex justify-content-end">
+                        <button class="themeBtnlight m-0 py-1 font-10 px-2 mr-2" onclick="unselectSurvey()" data-dismiss="modal"> Отмяна </button>
+                        <button class="themeBtn m-0 btn-sm py-1 font-10 px-2 " onclick="ResendServey();">Изпращане</button>
+                    </div>
+                </div>
+                <input type="hidden" value="" id="selectedPool" />
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+            <div class="modal-content rounded-0">
+                <div class="modal-body p-2">
+                    <div class="text-right">
+                        <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                    </div>
+                    <div class="px-4">
+                        <div class="text-center mb-3">
+                            <img src="~/Assets/Bee_bulb.svg" class="img-fluid" />
+                        </div>
+                        <div class="modaldarktitle text-center mb-4">
+                            <p class="darkTitle">Искате ли да продължите?</p>
+                            @*<p class="surveysubheading text-center pb-2">after you press "send" the participants will receive an email with the survey.</p>*@
+                        </div>
+                        <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
+                            <button class="themeBtnlight m-0" id="btnDelete">Да</button>
+                            <button class="themeBtn m-0" data-dismiss="modal" aria-label="Close">Не</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            startDate: new Date()
+        });
+        function deleteServey(id) {
+            $.post("/Survey/DeleteServey",
+                data = {
+                    Id: id,
+                },
+
+                function (data) {
+                    if (data) {
+                        toastr.success("Survey has been deleted successfully!");
+                        window.location.reload();
+                    }
+                });
+        }
+        function ResendServey(id) {
+            if ($('#selectedSurvey').val()) {
+                $('body').addClass('ShowLoader')
+                $.post("/Survey/ResendServey",
+                    data = {
+                        SurveyId: parseInt($('#selectedSurvey').val()),
+                        dueDate: $('#dueDate').val(),
+                    },
+
+                    function (data) {
+                        $('body').removeClass('ShowLoader')
+                        toastr.success("Survey has been send successfully!");
+                        window.location.reload();
+                    });
+            }
+        }
+        function selectSurvey(Id) {
+            $('#selectedSurvey').val(Id);
+        }
+        function unselectSurvey(Id) {
+            $('#selectedSurvey').val("");
+        }
+        $(document).on("change", "#searchText", function () {
+            $.post("/Survey/SearchSurveyArchive",
+                data = {
+                    text: $(this).val(),
+                },
+
+                function (data) {
+                    if (data) {
+                        $('#partial').html(data);
+                    }
+                });
+        });
+
+    </script>

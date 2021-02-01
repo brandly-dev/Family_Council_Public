@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewData["Title"] = "Archive Survey";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+<style>
+    .topHeader {
+        padding-top: 25px;
+    }
+
+    body {
+        height: 100% !important;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li>
+                <a href="/User/ActiveSurveyUser">Активни</a>
+            </li>
+            <li class="active"><a href="/User/ArchiveUser">Архив</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="bg-white">
+        <div class="d-flex justify-content-between pr-5 pl-4 topHeader">
+            <div>
+                <div class="d-flex">
+                    <div class="mr-3 pt-2">
+                        <img src="~/Assets/Archive_templates.svg" />
+                        @*<img src="~/Assets/Bee_bubble.svg" />*@
+                        @*<img src="~/Assets/Archive_templates.svg" class="pt-1" />*@
+                    </div>
+                    <div class="MainTitle">
+                        <h4 class="text-themegreen mb-1">Архив </h4>
+                        <p class="font-12">
+                            Брой активни анкети:
+
+                            <span class="text-themegreen" id="spCountUser">@ViewBag.RowCount</span><span>.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="align-self-center">
+                @*<select class="form-control form-control-sm">
+                        <option value="value">21 march 2019 - 31 apr 2019</option>
+                    </select>*@
+                @*<div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Date From</label>
+                            <input type="text" class="form-control DatePicker" id="DateFrom" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Date To</label>
+                            <input type="text" class="form-control DatePicker" id="DateTo" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                        </div>
+                    </div>*@
+                <div>
+                    <input type="text" class="form-control" name="daterange" value="" style="width: 205px;" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="BodyContent px-3">
+        <div class="showCountSurvey d-flex pt-3 pb-2">
+            <span>Резултати на страница </span>
+            @*<div class="d-inline-block countCircle"> 5</div>*@
+
+            <select id="drpNumber" class="d-inline-block countCircle" style="width: 50px !important;">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+
+            @*<img src="~/Assets/Arrow_drop_input.svg" />*@
+        </div>
+        <div class=" mt-2" id="divArchiveSurvey">
+            <partial name="/Views/User/_ArchiveUser.cshtml" />
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+
+    var fromDate = '';
+    var toDate = '';
+
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+              //  console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                fromDate = start.format('YYYY-MM-DD');
+              //  console.log(fromDate);
+                toDate = end.format('YYYY-MM-DD');
+               // console.log(toDate);
+
+                searchArchiveUser();
+        });
+    });
+    $(document).ready(function () {
+        //$("#spCountUser").text($(".surveyPortal").length);
+        $("#drpNumber").val(@ViewBag.PageSize);
+    });
+
+    //$(".DatePicker").datepicker({
+    //    autoclose: true
+    //});
+
+
+
+    //$("#drpNumber").change(function () {
+    //    var value = $(this).val();
+    //    value = Number(value);
+
+
+    //});
+
+
+    $("#drpNumber").change(function () {
+
+        searchArchiveUser();
+
+    });
+
+
+    function searchArchiveUser() {
+
+         var url = '@Url.Action("ArchiveUser", "User", new { fd="FromDate", td= "ToDate", pg = "pageVal", ps = "pageSizeVal" })';
+        url = url.replace("pageVal", 1);
+
+        if ($("#drpNumber").val() != '')
+        {
+            url = url.replace("pageSizeVal", Number($("#drpNumber").val()));
+        }
+
+        url = url.replace("FromDate", fromDate);
+        url = url.replace("ToDate", toDate);
+
+        url = url.replace(/\amp;/g, '');
+        window.location.href = url;
+    }
+
+</script>

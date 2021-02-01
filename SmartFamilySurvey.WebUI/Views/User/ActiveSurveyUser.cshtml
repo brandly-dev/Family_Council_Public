@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewData["Title"] = "Active Survey";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<style>
+    .topHeader {
+        padding-top: 25px;
+    }
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="">
+        <h3 class="SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="/User/ActiveSurveyUser">Активни</a>
+            </li>
+            <li><a href="/User/ArchiveUser">Архив</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="bg-white">
+        <div class="d-flex justify-content-between px-5 topHeader">
+            <div>
+                <div class="d-flex">
+                    <div class="mr-3">
+                        <img src="~/Assets/Bee_bubble.svg" />
+                        @*<img src="~/Assets/Archive_templates.svg" class="pt-1" />*@
+                    </div>
+                    <div class="MainTitle">
+                        <h4 class="text-themegreen mb-1">Активни анкети</h4>
+                        <p class="font-12">
+                            Брой активни анкети: 
+                            <span class="text-themegreen" id="spCountUser">@ViewBag.RowCount</span><span>.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="BodyContent px-3">
+        <div class="showCountSurvey d-flex pt-3 pb-2">
+            <span>Резултати на страница </span>
+            @*<div class="d-inline-block countCircle"> 5</div>*@
+            <select id="drpNumber" class="d-inline-block countCircle" style="width: 50px !important;">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+
+            @*<img src="~/Assets/Arrow_drop_input.svg" />*@
+        </div>
+        <div class="mt-2" id="divActiveSurvey">
+            <partial name="/Views/User/_ActiveSurveyUser.cshtml" />
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //$("#spCountUser").text($(".surveyPortal").length);
+        $("#drpNumber").val(@ViewBag.PageSize);
+    });
+
+
+    $("#drpNumber").change(function () {
+        var value = $(this).val();
+        value = Number(value);
+
+        var url = '@Url.Action("ActiveSurveyUser", "User", new { pg = "pageVal", ps = "pageSizeVal" })';
+        if (@ViewBag.PageIndex != null) {
+            url = url.replace("pageVal", 1);
+        }
+        if (value != '')
+        {
+            url = url.replace("pageSizeVal", value);
+        }
+        url = url.replace(/\amp;/g, '');
+        window.location.href = url;
+    });
+
+</script>

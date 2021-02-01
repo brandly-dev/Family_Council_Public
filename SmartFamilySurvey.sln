@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartFamilySurvey.WebUI", "SmartFamilySurvey.WebUI\SmartFamilySurvey.WebUI.csproj", "{A410A914-A843-4803-A510-0828D9749828}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESS.SFS", "ESS.SFS\ESS.SFS.csproj", "{3724C8BB-95DE-4E16-9B33-9D77A756F4AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A410A914-A843-4803-A510-0828D9749828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A410A914-A843-4803-A510-0828D9749828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A410A914-A843-4803-A510-0828D9749828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A410A914-A843-4803-A510-0828D9749828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3724C8BB-95DE-4E16-9B33-9D77A756F4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3724C8BB-95DE-4E16-9B33-9D77A756F4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3724C8BB-95DE-4E16-9B33-9D77A756F4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3724C8BB-95DE-4E16-9B33-9D77A756F4AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {453F584F-BA7D-4D09-867C-EBA8419ABF11}
+	EndGlobalSection
+EndGlobal

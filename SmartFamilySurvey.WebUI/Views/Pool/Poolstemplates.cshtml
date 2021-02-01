@@ -1,0 +1,154 @@
+﻿@model List<ESS.SFS.DAL.TblPool>
+@{
+    ViewData["Title"] = "Poolstemplates";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">участници</h3>
+        <ul class="Sidebarnav">
+            <li>
+                <a href="/pool/Participants">Участници</a>
+            </li>
+            <li class="active">
+                <a href="/pool/Poolstemplates">Запазени групи</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="bg-white">
+        <div class="d-flex justify-content-between px-5 topHeader">
+            <div>
+                <div class="d-flex">
+                    <div class="mr-3 pt-1">
+                        <img src="~/Assets/Groups_icon.svg" />
+                    </div>
+                    <div class="MainTitle">
+                        <h4 class="text-themegreen mb-1">Запазени групи участници</h4>
+                        <p class="font-12">Брой запазени групи: <span class="text-themegreen">@ViewBag.list.rowCount.</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="align-self-center">
+                <a href="/Pool/Index" class="btn btn-themegreen createnewsurveyBtn font-12 rounded-0 text-white">Създаване на нова група</a>
+            </div>
+        </div>
+    </div>
+    <div class="BodyContent px-3">
+        <div class="showCountSurvey d-flex py-3 pt-3">
+            <span>Резултати на страница</span>
+            <div class="dropdown">
+                <div class="d-inline-block  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="countCircle1"> @ViewBag.list.pageSize  </span></div>
+
+                <div class="dropdown-menu customdropdownwidth" aria-labelledby="dropdownMenu2">
+                    <a class="dropdown-item" href="@Url.Action("Poolstemplates","Pool", new { page = 1,pageSize = 5  })">5</a>
+                    <a class="dropdown-item" href="@Url.Action("Poolstemplates","Pool", new { page = 1,pageSize = 10  })">10</a>
+                    <a class="dropdown-item" href="@Url.Action("Poolstemplates","Pool", new { page = 1,pageSize = 20  })">20</a>
+                    <a class="dropdown-item" href="@Url.Action("Poolstemplates","Pool", new { page = 1,pageSize = 50  })">50</a>
+                    <a class="dropdown-item" href="@Url.Action("Poolstemplates","Pool", new { page = 1,pageSize = 100  })">100</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            @{
+                int counter = 0;
+            }
+            @foreach (var item in Model.OrderByDescending(x => x.Id))
+            {
+                counter = counter + 1;
+                <div class="surveyPortal mb-3">
+                    <div class="d-flex justify-content-between pt-3 pb-2 px-4">
+                        <div class="d-flex">
+                            <div class="">
+                                <div class="survecount d-inline-block font-10">@counter</div>
+                            </div>
+                            <div class=" pt-1">
+                                <p class="portletSurveyTitle mb-0">@item.PoolName</p>
+                                <p class="font-12 mutedtext mb-2">Брой участници: @item.Participant</p>
+                            </div>
+                        </div>
+                        @*<div>
+                                <a href="javascript:;" class="text-themegreen font-gmedium font-12" data-toggle="modal" data-target="#deleteModal">delete</a>
+
+                            </div>*@
+                    </div>
+                    <div class="border-top pl-5 pr-4 py-2 pb-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="w-75">
+                                <p class="mb-0 poolportletfilter font-12">
+                                    @if (item.AgeMax.HasValue)
+                                    {
+                                        <span class="border-right font-10 font-gregular px-2">@item.AgeMin-@item.AgeMax</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.CityIds))
+                                    {
+                                        <span class="border-right font-10 font-gregular px-2">@item.CityIds</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.FamilyStatus))
+                                    {
+                                        <span class="border-right font-10 font-gregular px-2">@item.FamilyStatus</span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.Gender))
+                                    {
+                                        <span class=" font-10 font-gregular px-2">@item.Gender</span>
+                                    }
+                                </p>
+                            </div>
+                            @*<div>
+                                    <a href="javascript:;" class="elipscolor"><i class="fas fa-ellipsis-h"></i></a>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <div class="text-right">
+                @if (ViewBag.list.pageCount > 0)
+                {
+                    @for (var p = 1; p <= ViewBag.list.pageCount; p++)
+                    {
+
+                        if (p == ViewBag.PageIndex)
+                        {
+                            <a href="@Url.Action("Poolstemplates","Pool", new { page = p,pageSize = ViewBag.list.pageSize  })" class="paggerDefault active">@p</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Poolstemplates","Pool", new { page = p,pageSize = ViewBag.list.pageSize  })" class="paggerDefault">@p</a>
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-body p-2">
+                <div class="text-right">
+                    <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                </div>
+                <div class="px-4">
+                    <div class="text-center mb-3">
+                        <img src="~/Assets/Bee_bulb.svg" class="img-fluid" />
+                    </div>
+                    <div class="modaldarktitle text-center mb-4">
+                        <p class="darkTitle">Искате ли да продължите?</p>
+                        @*<p class="surveysubheading text-center pb-2">after you press "send" the participants will receive an email with the survey.</p>*@<p class="surveysubheading text-center pb-2"></p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
+                        <button class="themeBtnlight m-0" id="btnDelete">Да</button>
+                        <button class="themeBtn m-0" data-dismiss="modal" aria-label="Close">Не</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewData["Title"] = "TemplateDetailedView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li>
+                <a href="javascript:;">Активни</a>
+            </li>
+            <li class="active"><a href="javascript:;">Архив</a></li>
+            <li><a href="/pool/Poolstemplates">Шаблони</a></li>
+
+            <li><a href="javascript:;">Google forms</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="BodyContent surveydetailview bg-white h-100 pl-3">
+        <div class="pt-5">
+            <a href="javascript:;" class="text-themegreen font-12 font-gregular"><i class="fal fa-angle-left"></i> back to templates</a>
+        </div>
+        <div class="mt-5 pt-4">
+            <h4 class="text-themegreen">Заглавие на анкетата</h4>
+            <p class="subtitle">Краен срок: 5 days</p>
+        </div>
+        <div class="mt-5">
+            <div class="d-flex">
+                <div class="col-md-7 px-0 shadow-sm">
+                    <div class="">
+                        <span class="surverdetailsmalltitle px-4 py-3 d-block">Участници: 20</span>
+                        <div class="">
+                            <div class="border-top border-bottom ">
+                                <div class="surveyPortal shadow-none">
+                                    <div class="d-flex justify-content-between pt-3 pb-2 px-4">
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <div class="survecount d-inline-block font-10">1</div>
+                                            </div>
+                                            <div class=" pt-1">
+                                                <p class="portletSurveyTitle mb-2 font-12">Име на групата участници</p>
+                                                <p class="font-12 mutedtext mb-2">
+                                                    <span class="border-right font-10 font-gregular pr-2">25-55</span>
+                                                    <span class="border-right font-10 font-gregular px-2">София, Пловдив,Ню йорк</span>
+                                                    <span class="border-right font-10 font-gregular px-2">1000-2000eur</span>
+                                                    <span class="border-right font-10 font-gregular px-2">необвързани, без деца</span>
+                                                    <span class="font-10 font-gregular px-2">жени, мъже</span>
+                                                </p>
+                                                <div class="pb-3">
+                                                    <small class="font-10 font-gmedium">Участници попълнили анкетата: <span class="text-themegreen">15</span></small>
+
+                                                </div>
+                                                @*<p class="mb-0 poolportletfilter font-12">
+
+                                                    </p>*@
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:;" class="text-themegreen font-gmedium font-12"  data-toggle="modal" data-target="#deleteModal">Изтриване</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="">
+                        <div class="mb-3">
+                            <p class="detailedgooglformtitle">Google forms шаблони </p>
+                        </div>
+                        <div class="portlet mb-2">
+                            <p class="portletTitle mb-0"> Име на google forms шаблона</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="formstext mb-0">Краен срок: 4.12.2020</p>
+                                <div class="custom-control themecheckbox custom-checkbox googleformcheckbox p-0" style="margin-top:-10px;">
+                                    <input type="checkbox" class="custom-control-input" id="googleformcheckbox">
+                                    <label class="custom-control-label" for="googleformcheckbox"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-body p-2">
+                <div class="text-right">
+                    <a href="javascript:;" data-dismiss="modal" aria-label="Close"><img src="~/Assets/Close_icon.svg" /></a>
+                </div>
+                <div class="px-4">
+                    <div class="text-center mb-3">
+                        <img src="~/Assets/Bee_bulb.svg" class="img-fluid" />
+                    </div>
+                    <div class="modaldarktitle text-center mb-4">
+                        <p class="darkTitle">Искате ли да продължите?</p>
+                        @*<p class="surveysubheading text-center pb-2">after you press "send" the participants will receive an email with the survey.</p>*@
+                    </div>
+                    <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
+                        <button class="themeBtnlight m-0" id="btnDelete">Да</button>
+                        <button class="themeBtn m-0" data-dismiss="modal" aria-label="Close">Не</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

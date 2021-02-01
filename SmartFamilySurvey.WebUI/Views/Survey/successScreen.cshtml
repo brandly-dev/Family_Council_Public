@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "successScreen";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<style>
+    body {
+        height: 100% !important;
+    }
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="">
+        <h3 class="SurveyTitle">Анкети</h3>
+            <ul class="Sidebarnav">
+                <li>
+                    <a href="/Survey/ActiveSurveys">Активни</a>
+                </li>
+                <li><a href="/Survey/SurveyArchive">Архив</a></li>
+                <li><a href="/pool/Poolstemplates">Групи участници</a></li>
+
+                <li class="active"> <a href="/googleForm/Index">Google forms</a></li>
+            </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="BodyContent h-100 position-relative">
+        <div class="showincenter text-center">
+            <img src="~/Assets/Sent_successful.svg" />
+            <h3 class="darkTitle text-center mb-1">Анкетата е изпратена успешно!</h3>
+            <p class="subsuccesshead text-center mb-4">Участниците ще получат имейл с анкетата.</p>
+            <a href="/Survey/ActiveSurveys" class="m-0 themeBtn text-white font-12 px-4"> <span class="px-3">Към активните анкети </span> </a>
+        </div>
+    </div>
+</div>

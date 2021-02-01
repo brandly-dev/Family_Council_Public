@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "iframeView";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="text-center SurveyTitle">Анкети</h3>
+        <ul class="Sidebarnav">
+            <li >
+                <a href="/Survey/ActiveSurveys">Активни</a>
+            </li>
+            <li><a href="/Survey/SurveyArchive">Архив</a></li>
+            <li><a href="/pool/Poolstemplates">Шаблони</a></li>
+
+            <li class="active"><a href="/googleForm/Index">Google форми</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="BodyContent surveydetailview bg-themlightbrown h-100 pl-3">
+        <div class="pt-5 pb-3">
+            <a href="javascript:;" class="text-themegreen font-12 font-gregular"><i class="fal fa-angle-left"></i> Обратно към Google формите</a>
+        </div>
+        <div class="mt-4">
+            <h4 class="text-themegreen font-gbold"> Заглавие</h4>
+            <p class="subtitle font-12">Дата на създаване: 4.12.2020</p>
+        </div>
+        <div class="mt-5">
+            <div class="d-flex">
+                <div class="col-md-7 px-0 shadow-sm">
+                    @* show iframe here *@
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

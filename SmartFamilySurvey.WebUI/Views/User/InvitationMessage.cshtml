@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Invitation Message";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var userID = MatSource.Library.Helper.Session.userID;
+}
+
+
+@if (TempData["Message"] != null)
+{
+    <span>@TempData["Message"]</span>
+}
+
+<a href="/User/UserProfile?uid=@userID" class="kt-login__link">Потребителски профил</a>
+

@@ -1,0 +1,171 @@
+﻿@model ESS.SFS.ViewModel.AdminLogin
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .LoginLeftBackground {
+        background: url(/Assets/Login_bg_left.svg);
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .LoginrightBackground {
+        background: url(/Assets/Login_bg_right.svg);
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: right;
+    }
+
+    .ShowTopLogo {
+        padding: 46px 40px 20px 40px;
+        text-align: center;
+    }
+
+    .portletBox {
+        width: 85%;
+        height: auto;
+        margin: 0 auto 7.8px auto;
+        padding: 12px 91px 29px 94px;
+        box-shadow: 5px 10px 15px 0 rgba(0, 0, 0, 0.16);
+        background-color: #ffffff;
+    }
+
+    .logintitle {
+        height: 40px;
+        font-family: Gilroy;
+        font-size: 33px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.24;
+        letter-spacing: normal;
+        text-align: left;
+        color: #00a395;
+    }
+
+    .subtitleLogin {
+        font-family: Gilroy;
+        font-size: 10px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 0.4;
+        letter-spacing: -0.25px;
+        text-align: left;
+        color: #4e5048;
+    }
+
+    .SmallSection {
+        width: 100%;
+    }
+
+        .SmallSection label {
+            font-family: Gilroy-Bold;
+            font-size: 12px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 2;
+            letter-spacing: -0.31px;
+            text-align: left;
+            color: #4e5048;
+            margin: 2px;
+        }
+
+    .smallbottomtext {
+        font-family: Gilroy;
+        font-size: 10px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: -0.25px;
+        text-align: left;
+        color: #999c8c;
+        margin: 28px 6px 0 1px;
+    }
+
+    .hiddenBtn {
+        font-size: 12px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.31px;
+        text-align: left;
+        color: #00a395;
+        font-family: Gilroy-Medium;
+    }
+
+    .minumar {
+        margin-bottom: -17px;
+    }
+</style>
+<input type="hidden" id="success" value="@TempData["success"]" />
+
+<div class="row">
+    <div class="col-md-3 LoginLeftBackground ">
+
+    </div>
+    <div class="col-md-6">
+        <div class="ShowTopLogo">
+            <img src="~/Assets/Logo_big.svg" />
+        </div>
+        <div class="portletBox">
+            <h3 class="text-themegreen logintitle text-center">Вход</h3>
+            <p class="subtitleLogin text-center">Искате да участвате? <a href="javascript:;" class="text-themegreen">Поискайте покана</a></p>
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "kt-form" }))
+            {
+                <div class="SmallSection">
+                    <div>
+                        <label>Потребителско име:</label>
+                        @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "themecustomInput", @placeholder = "Имейл", @autocomplete = "off" })
+                        @*<input type="email" name="name" placeholder="E-mail" class="" value="" />*@
+                    </div>
+                    <div class="text-right minumar mt-1">
+                        <a href="javascript:;" class="text-themegreen hiddenBtn"> <img src="~/Assets/Eye_login_page.svg" class="mr-2 " />hidden</a>
+                    </div>
+
+                    <div>
+                        <label>Парола:</label>
+                        @Html.TextBoxFor(m => m.password, new { @type = "password", @class = "themecustomInput", @placeholder = "Парола", @autocomplete = "off" })
+                        @*<input type="email" name="name" placeholder="E-mail" class="" value="" />*@
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-themegreen btn-block btn-square mt-4 font-gmedium"> Вход </button>
+                        <div class="text-center">
+                            <a href="/Account/ForgetPassword" class="theme-link font-gregular">Забравена парола</a>
+
+                        </div>
+                        <div class="text-danger">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+
+                        <p class="smallbottomtext font-gregular">@DateTime.UtcNow.Year всички права запазени. политика за поверителност , политика за бисквидки</p>
+                    </div>
+                </div>
+            }
+            </div>
+       
+        </div>
+        <div class="col-md-3 LoginrightBackground ">
+
+
+        </div>
+    </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      var msg = '@TempData["success"]';
+      if (msg != null && msg != "" && msg != undefined) {
+          toastr.success(msg);
+      }
+  });
+
+</script>

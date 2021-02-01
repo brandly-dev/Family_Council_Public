@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Successfully";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<style>
+    body{
+        height:100% !important;
+    }
+</style>
+
+<div class="w-15 bg-themebrown">
+    <div class="pt-3">
+        <h3 class="text-center SurveyTitle">Участници</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="/Survey/ActiveSurveys">Участници</a>
+            </li>
+            <li>
+                <a href="/pool/Poolstemplates">Запазени групи</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-100">
+    <div class="BodyContent h-100 position-relative">
+        <div class="showincenter text-center">
+            <img src="~/Assets/Sent_successful.svg" />
+            <h3 class="darkTitle text-center mb-1">Поканата е изпратена успешно.</h3>
+            <p class="subsuccesshead text-center mb-4">Участниците ще я получат скоро.</p>
+            <a href="/Survey/ActiveSurveys" class="m-0 themeBtn text-white font-12 px-4"> <span class="px-3">Връщане към всички участници  </span> </a>
+        </div>
+    </div>
+</div>

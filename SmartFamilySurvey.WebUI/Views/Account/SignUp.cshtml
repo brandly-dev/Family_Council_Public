@@ -1,0 +1,639 @@
+﻿@model ESS.SFS.ViewModel.UserViewModel
+@{
+    ViewData["Title"] = "Sign Up";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .LoginLeftBackground {
+        background: url(/Assets/Login_bg_left.svg);
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .LoginrightBackground {
+        background: url(/Assets/Login_bg_right.svg);
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: right;
+    }
+
+    .ShowTopLogo {
+        padding: 46px 40px 20px 40px;
+        text-align: center;
+    }
+    .custom-control-label {
+        font-family: Gilroy !important;
+    }
+    .portletBox {
+        width: 86%;
+        height: 378px;
+        margin: 0 auto 7.8px auto;
+        padding: 12px 91px 29px 94px;
+        box-shadow: 5px 10px 15px 0 rgba(0, 0, 0, 0.16);
+        background-color: #ffffff;
+    }
+
+    .logintitle {
+        height: 40px;
+        font-family: Gilroy;
+        font-size: 33px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.24;
+        letter-spacing: normal;
+        text-align: left;
+        color: #00a395;
+    }
+
+    .logintitle2 {
+        height: 40px;
+        font-family: Gilroy;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.24;
+        letter-spacing: normal;
+        text-align: left;
+        color: #00a395;
+    }
+
+    .subtitleLogin {
+        font-family: Gilroy;
+        font-size: 10px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 0.4;
+        letter-spacing: -0.25px;
+        text-align: left;
+        color: #4e5048;
+    }
+
+    .SmallSection {
+        width: 100%;
+        height: 88%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .SmallSection label {
+            font-family: Gilroy-Bold;
+            font-size: 12px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 2;
+            letter-spacing: -0.31px;
+            text-align: left;
+            color: #4e5048;
+            margin: 2px;
+        }
+
+   
+    .hiddenBtn {
+        font-size: 12px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        font-family: Gilroy-Medium;
+        line-height: 1.5;
+        letter-spacing: -0.31px;
+        text-align: left;
+        color: #00a395;
+    }
+
+    .minumar {
+        margin-bottom: -17px;
+    }
+    .spRequired {
+        font-size: 12px;
+        color: red;
+    }
+</style>
+
+@*<form method="post" id="loginForm" name="loginForm">
+            <table cellpadding="0" border="1">
+                <tr>
+                    <td>Password</td>
+                    <td><input tabindex="1" size="40" type="password" name="password" id="password" /></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password</td>
+                    <td><input tabindex="1" size="40" type="password" name="confirmpassword" id="confirmpassword" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input tabindex="3" type="button" value="Submit" onClick="validatePassword();" /></td>
+                </tr>
+            </table>
+        </form>
+
+    <div class="row">
+        <form asp-area="Account" class="kt-form" asp-controller="Account" asp-action="SignUp" id="MainForm">
+            @Html.HiddenFor(i => i.Id);
+            <div class="modal fade" id="ExpandModel" tabindex="-1" role="dialog" aria-labelledby="ExpandModelLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Welcome
+                            </h5>
+                            <button type="button" class="close Closethis" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="input-group">
+                                            <span>Username</span>
+                                            @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control", @placeholder = "Email", @autocomplete = "off", @readonly = "readonly" })<br />
+                                            @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+                                            <span id="spEmail" style="display:none">Required</span>
+                                        </div>
+
+                                        <br />
+                                        <div class="input-group">
+                                            <span>Password</span>
+                                            @Html.TextBoxFor(m => m.password, new { @type = "password", @ID = "password", @name = "password", @class = "form-control", @placeholder = "Password", @autocomplete = "off" })<br />
+                                            @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+                                            <span id="spPassword" style="display:none">Required</span>
+                                        </div>
+                                        <br />
+                                        <div class="input-group">
+                                            <span>Confirm Password</span>
+                                            @Html.TextBoxFor(m => m.repeatPassword, new { @type = "password", @ID = "confirmpassword", @name = "confirmpassword", @class = "form-control", @placeholder = "User Password", @autocomplete = "off" })<br />
+                                            @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+                                            <span id="spConfirmPassword" style="display:none">Required</span>
+                                        </div>
+
+                                        <div class="kt-login__actions">
+                                            <a href="javascript:;" id="btnNext" class="btn btn-brand btn-success btn_Login btn-elevate kt-login__btn-primary" onClick="validatePassword();">Next</a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary closemodel" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ExpandModel2" tabindex="-1" role="dialog" aria-labelledby="ExpandModelLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                let's finish your profile
+                            </h5>
+                            <button type="button" class="close Closethis" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="input-group">
+                                            Single
+                                            @Html.RadioButtonFor(model => model.maritalStatus, "1")
+                                            Married
+                                            @Html.RadioButtonFor(model => model.maritalStatus, "2")
+                                            With Children
+                                            @Html.RadioButtonFor(model => model.maritalStatus, "3")
+                                        </div>
+
+                                        <div class="kt-login__actions">
+                                            <a href="javascript:;" id="btnNext2" class="btn btn-brand btn-success btn_Login btn-elevate kt-login__btn-primary" onClick="validateMaritalStatus();">Next</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary closemodel" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ExpandModel3" tabindex="-1" role="dialog" aria-labelledby="ExpandModelLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                let's finish your profile
+                            </h5>
+                            <button type="button" class="close Closethis" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <div class="input-group">
+                                            <span>Name and Surname</span>
+                                            @Html.TextBoxFor(m => m.surname, new { @type = "text", @class = "form-control", @placeholder = "Name and Surname", @autocomplete = "off" })<br />
+                                            <span id="spSurname" style="display:none">Required</span>
+                                        </div>
+
+                                        <br />
+                                        <div class="input-group">
+                                            <span style="text-align:left;">Gender</span>
+                                            @Html.DropDownListFor(m => m.gender, new SelectList(Model.lstGender, "Id", "Name"), new { @class = "form-control", @id = "drpGender" })
+                                        </div>
+
+                                        <br />
+                                        <div class="input-group">
+                                            <span>Age</span>
+                                            @Html.TextBoxFor(m => m.age, new { @type = "number", @class = "form-control", @placeholder = "Age", @autocomplete = "off" })<br />
+                                            <span id="spAge" style="display:none">Required</span>
+                                        </div>
+
+                                        <br />
+                                        <div class="input-group">
+                                            <span style="text-align:left;">Country</span>
+                                            @Html.DropDownListFor(m => m.country, new SelectList(Model.lstCountry, "Value", "Text"), new { @class = "form-control", @id = "drpCountry" })
+                                        </div>
+
+                                        <br />
+                                        <div class="input-group">
+                                            <span style="text-align:left;">City</span>
+                                            @Html.DropDownListFor(m => m.city, new SelectList(Model.lstCity, "Id", "Name"), "Please select city", new { @class = "form-control", @id = "drpCity" })
+                                            <span id="spCity" style="display:none">Required</span>
+                                        </div>
+
+                                        <div class="kt-login__actions">
+                                            <a href="javascript:;" id="btnNext3" class="btn btn-brand btn-success btn_Login btn-elevate kt-login__btn-primary">Next</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary closemodel" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn" class="btn btn-brand btn-sm">Submit<i class="la la-angle-right"></i></button>
+        </form>
+    </div>*@
+
+<div class="row">
+    <div class="col-md-3 LoginLeftBackground ">
+
+    </div>
+    <div class="col-md-6">
+        <div class="ShowTopLogo">
+            <img src="~/Assets/Logo_big.svg" />
+        </div>
+        <form asp-area="Account" class="kt-form" asp-controller="Account" asp-action="SignUp" id="MainForm">
+            @Html.HiddenFor(i => i.Id);
+            <div class="portletBox">
+                <h3 class="text-themegreen logintitle text-center ">Добре дошли!</h3>
+                <h2 class="text-themegreen logintitle2  text-center mb-2 d-none">Довършете своя профил</h2>
+
+                <div class="SmallSection">
+                    <div class="stepss">
+                        <div class="step1 ">
+                            <div>
+                                <label>Потребителско име</label>
+                                @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "themecustomInput", @placeholder = "Имейл", @autocomplete = "off", @readonly = "readonly" })<br />
+                                @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+                                <span id="spEmail" style="display:none" class="spRequired">Required</span>
+                            </div>
+                            <div class="text-right minumar mt-1">
+                                <a href="javascript:;" class="text-themegreen hiddenBtn"> <img src="~/Assets/Eye_login_page.svg" class="mr-2 " />hide</a>
+                            </div>
+
+                            <div class="mb-2">
+                                <label>Парола</label>
+                                @Html.TextBoxFor(m => m.password, new { @type = "password", @ID = "password", @name = "password", @class = "themecustomInput passwordInput hide-password", @placeholder = "Парола", @autocomplete = "off" })<br />
+                                @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+                                <span id="spPassword" style="display:none" class="spRequired">Required</span>
+                            </div>
+                            <div class="">
+                                <label>Потвърдете паролата</label>
+                                @Html.TextBoxFor(m => m.repeatPassword, new { @type = "password", @ID = "confirmpassword", @name = "confirmpassword", @class = "themecustomInput passwordInput hide-password", @placeholder = "Парола", @autocomplete = "off" })<br />
+                                @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+                                <span id="spConfirmPassword" style="display:none" class="spRequired">Задължително поле</span>
+                            </div>
+                        </div>
+                        <div class="step2 d-none">
+                            <div class="mb-2">
+                                <label>Име и фамилия</label>
+                                @Html.TextBoxFor(m => m.surname, new { @type = "text", @class = "themecustomInput", @placeholder = "Име и фамилия", @autocomplete = "off" })<br />
+                                <span id="spSurname" style="display:none" class="spRequired">Задължително поле</span>
+                            </div>
+                            <div class="mb-2">
+                                <div class="d-flex">
+                                    <div class="w-50 pr-2">
+                                        <div>
+                                            <label>Пол</label>
+                                            @Html.DropDownListFor(m => m.gender, new SelectList(Model.lstGender, "Id", "Name"), new { @class = "themecustomInput", @id = "drpGender" })
+
+                                        </div>
+                                    </div>
+                                    <div class="w-50">
+                                        <div>
+                                            <label>Възраст</label>
+                                            @Html.TextBoxFor(m => m.age, new { @type = "number", @class = "themecustomInput", @placeholder = "Възраст", @autocomplete = "off", @min = "1", @max = "999" })<br />
+                                            <span id="spAge" style="display:none" class="spRequired">Задължително поле</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <div class="w-50 pr-2">
+                                    <div>
+                                        <label>Държава</label>
+                                        @Html.DropDownListFor(m => m.country, new SelectList(Model.lstCountry, "Value", "Text"), new { @class = "themecustomInput", @id = "drpCountry" })
+
+                                    </div>
+                                </div>
+                                <div class="w-50 ">
+                                    <div>
+                                        <label>Град</label>
+                                        @Html.DropDownListFor(m => m.city, new SelectList(Model.lstCity, "Id", "Name"), "Please select city", new { @class = "themecustomInput", @id = "drpCity" })
+                                    <span id="spCity" style="display:none" class="spRequired">Задължително поле</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step3 mb-5 d-none">
+                            <div class="pb-4">
+                                @*<label class="mb-2">Job</label>
+                                    @Html.TextBoxFor(m => m.email, new { @type = "text", @class = "themecustomInput", @placeholder = "copywriter", @autocomplete = "off" })*@
+                                @*<input type="email" name="name" placeholder="E-mail" class="" value="" />*@
+                            </div>
+                            <div class="mb-2 pb-3">
+                                <label>Семеен статус</label>
+                                <div>
+                                    @*<div class="custom-control themecheckbox custom-checkbox newsingup">
+            <input type="checkbox" class="custom-control-input" id="newPoolcheck">
+
+        </div>
+        <div class="custom-control themecheckbox custom-checkbox newsingup">
+            <input type="checkbox" class="custom-control-input" id="newPoolcheck2">
+
+        </div>
+        <div class="custom-control themecheckbox custom-checkbox newsingup">
+            <input type="checkbox" class="custom-control-input" id="newPoolcheck3">
+
+        </div>*@
+
+                                    @*<div class="custom-control themecheckbox custom-checkbox newsingup">
+
+            @Html.RadioButtonFor(model => model.maritalStatus, "1", new { @class = "custom-control-input", @id = "newPoolcheck" })
+            <label class="custom-control-label" for="newPoolcheck">single</label>
+
+            @Html.RadioButtonFor(model => model.maritalStatus, "2", new { @class = "custom-control-input", @id = "newPoolcheck2" })
+            <label class="custom-control-label" for="newPoolcheck2">married</label>
+
+            @Html.RadioButtonFor(model => model.maritalStatus, "3", new { @class = "custom-control-input", @id = "newPoolcheck3" })
+            <label class="custom-control-label" for="newPoolcheck3">with children</label>
+        </div>*@
+
+                                    <div class="custom-control themecheckbox custom-checkbox newsingup newPoolcheckbox">
+                                        @Html.RadioButtonFor(model => model.maritalStatus, "1", new { @class = "custom-control-input", @id = "newPoolcheck" })
+                                        <label class="custom-control-label" for="newPoolcheck"> Неомъжена/Неженен  </label>
+                                    </div>
+                                    <div class="custom-control themecheckbox custom-checkbox newsingup newPoolcheckbox">
+                                        @Html.RadioButtonFor(model => model.maritalStatus, "2", new { @class = "custom-control-input", @id = "newPoolcheck2" })
+                                        <label class="custom-control-label" for="newPoolcheck2"> Омъжена/Женен  </label>
+                                    </div>
+                                    <div class="custom-control themecheckbox custom-checkbox newsingup newPoolcheckbox">
+                                        @Html.RadioButtonFor(model => model.maritalStatus, "3", new { @class = "custom-control-input", @id = "newPoolcheck3" })
+                                        <label class="custom-control-label" for="newPoolcheck3"> Самотен родител  </label>
+                                    </div>
+                                    @*<div class="custom-control themecheckbox custom-checkbox newPoolcheckbox">
+                                        <input type="radio" class="custom-control-input" checked="" id="newPoolcheck" name="pannelOption">
+                                        <label class="custom-control-label" for="newPoolcheck">create new pool for the survey</label>
+                                    </div>*@
+                                    @*<div class="custom-control themecheckbox custom-checkbox newsingup">
+            Single
+            @Html.RadioButtonFor(model => model.maritalStatus, "1", new { @class = "", @id = "newPoolcheck" })
+            Married
+            @Html.RadioButtonFor(model => model.maritalStatus, "2", new { @class = "", @id = "newPoolcheck2" })
+            With Children
+            @Html.RadioButtonFor(model => model.maritalStatus, "3", new { @class = "", @id = "newPoolcheck3" })
+        </div>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <button type="button" class="themeBtn nextBtn  btn-square mt-4 btn-block text-center">   next  <img class="ml-3" src="~/Assets/Arrow_next.svg" /></button>
+                        </div>
+                        <div class="navcirlcie mt-4">
+                            <span class="greencircle active"></span>
+                            <span class="greencircle"></span>
+                            <span class="greencircle"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+    <div class="col-md-3 LoginrightBackground ">
+
+
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#ExpandModel').modal('show');
+        })
+
+
+        $(document).on("change", "#surname", function () {
+            $("#spSurname").hide();
+        });
+
+
+        function ValidateEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        };
+
+
+        $(document).on("change", "#email", function () {
+            $("#spEmail").hide();
+        });
+
+        $(document).on("change", "#password", function () {
+            $("#spPassword").hide();
+        });
+        $(document).on("change", "#confirmpassword", function () {
+            $("#spConfirmPassword").hide();
+        });
+
+
+
+        $(document).on("change", "#surname", function () {
+            $("#spSurname").hide();
+        });
+
+        $(document).on("change", "#age", function () {
+            $("#spAge").hide();
+        });
+        $(document).on("change", "#drpCity", function () {
+            $("#spCity").hide();
+        });
+
+        var IsNextScreen = false;
+        var IsFinalSubmission = false;
+        $(document).on("click", ".nextBtn", function (e) {
+            e.preventDefault();
+            if ($("#email").val() == null || $("#email").val() == undefined || $("#email").val() == "") {
+                $("#spEmail").show();
+                return false;
+            }
+            else {
+
+                if (!ValidateEmail($("#email").val())) {
+                    $("#spEmail").text("Please enter valid email");
+                    $("#spEmail").show();
+                    return false;
+                }
+                else {
+                    $("#spEmail").hide();
+                }
+            }
+
+            if ($("#password").val() == null || $("#password").val() == undefined || $("#password").val() == "") {
+                $("#spPassword").show();
+                return false;
+            }
+            else {
+                $("#spPassword").hide();
+
+            }
+
+            if ($("#confirmpassword").val() == null || $("#confirmpassword").val() == undefined || $("#confirmpassword").val() == "") {
+                $("#spConfirmPassword").show();
+                return false;
+            }
+            else {
+                $("#spConfirmPassword").hide();
+            }
+
+            if ($("#password").val() === $("#confirmpassword").val()) {
+                $("#spConfirmPassword").text("Required");
+                $("#spConfirmPassword").hide();
+            }
+            else {
+                $("#spConfirmPassword").text("Password and repeat password not match!");
+                $("#spConfirmPassword").show();
+                return false;
+            }
+
+            // $('#ExpandModel').modal('hide');
+            // $('#ExpandModel2').modal('show');
+
+            $('.step1').addClass('d-none');
+            $('.step2').removeClass('d-none');
+            $('.greencircle.active').removeClass('active').next().addClass('active');
+            $('.logintitle2').removeClass('d-none');
+            $('.logintitle').addClass('d-none');
+
+            
+            
+            if ($("#surname").val() == null || $("#surname").val() == undefined || $("#surname").val() == "") {
+                $("#spSurname").show();
+                if (IsNextScreen == false) {
+                    IsNextScreen = true;
+                    $("#spSurname").hide();
+                }
+                return false;
+            }
+            else {
+                $("#spSurname").hide();
+            }
+
+            if ($("#age").val() == null || $("#age").val() == undefined || $("#age").val() == "") {
+                $("#spAge").show();
+                return false;
+            }
+            else {
+                $("#spAge").hide();
+            }
+
+            if ($("#drpCity").val() == null || $("#drpCity").val() == undefined || $("#drpCity").val() == "") {
+                $("#spCity").show();
+                return false;
+            }
+            else {
+                $("#spCity").hide();
+            }
+
+            $('.step2').addClass('d-none');
+            $('.step3').removeClass('d-none');
+            $('.greencircle.active').removeClass('active').next().addClass('active');
+            if (IsFinalSubmission == false) {
+                IsFinalSubmission = true;
+                return false;
+            }
+
+            if (IsFinalSubmission == true) {
+                $("#MainForm").submit();
+            }
+
+        });
+
+            //$(document).on("click", '.nextBtn', function () {
+            //    if (!$('.step1').hasClass('d-none')) {
+            //        $('.step1').addClass('d-none');
+            //        $('.step2').removeClass('d-none');
+            //        $('.greencircle.active').removeClass('active').next().addClass('active')
+            //        $('.logintitle2').removeClass('d-none')
+            //        $('.logintitle').addClass('d-none')
+            //    } else if (!$('.step2').hasClass('d-none')) {
+            //        $('.step2').addClass('d-none');
+            //        $('.step3').removeClass('d-none');
+            //        $('.greencircle.active').removeClass('active').next().addClass('active')
+            //    } else if (!$('.step3').hasClass('d-none')) {
+
+            //    }
+            //})
+        $('.hiddenBtn').click(function () {
+            $('.passwordInput').toggleClass('show-password hide-password');
+            if ($('.passwordInput').hasClass('show-password')) {
+                $('.passwordInput').attr("type", "text");
+
+            } else {
+                $('.passwordInput').attr("type", "password");
+
+            }
+
+
+        })
+    </script>
+
+}

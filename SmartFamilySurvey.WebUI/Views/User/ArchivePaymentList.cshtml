@@ -1,0 +1,99 @@
+﻿@model ESS.SFS.DAL.TblPayment
+@{
+    ViewData["Title"] = "Archive Payment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        height: 100% !important;
+    }
+    .w-85 {
+        width: 85%;
+    }
+
+    div.w-15.bg-themebrown > div.pt-3 {
+        width: 14.25%;
+    }
+  
+</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+<div class="w-15 bg-themebrown">
+    <div class="mt-5 pt-3">
+        <h3 class=" SurveyTitle">Плащания</h3>
+        <ul class="Sidebarnav">
+            <li>
+                <a href="/User/PendingPaymentList">Чакащи одобрение</a>
+            </li>
+            <li class="active"><a href="/User/ArchivePaymentList">Архив</a></li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper w-85">
+    <div class="bg-white h-100">
+        <div class="d-flex justify-content-between px-5 topHeader">
+            <div>
+                <div class="d-flex">
+                    <div class="mr-3 pt-1">
+                        <img src="~/Assets/Groups_icon.svg" />
+                    </div>
+                    <div class="MainTitle">
+                        <h4 class="text-themegreen mb-1">Архив на плащанията</h4>
+                        <p class="font-12">Лист с всички минали транзакции</p>
+                    </div>
+                </div>
+            </div>
+            <div class="align-self-center">
+                <input type="text" name="daterange" class="form-control" value="" style="width: 208px;" />
+            </div>
+        </div>
+        <div class=" mt-2" id="divPayment">
+            <partial name="/Views/User/_ArchivePaymentList.cshtml" />
+        </div>
+
+    </div>
+</div>
+
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+
+    var fromDate = null;
+    var toDate = null;
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            fromDate = start.format('YYYY-MM-DD');
+            toDate = end.format('YYYY-MM-DD');
+                searchPayment();
+        });
+    });
+    $(document).ready(function () {
+        $('.datatble').DataTable({
+            "dom": 'tp'
+        });
+    });
+
+
+    function searchPayment() {
+
+        $("body").addClass("ShowLoader");
+        $.ajax({
+            type: 'Post',
+            data: { FromDate: fromDate, ToDate: toDate },
+            dataType: 'html',
+            url: '/User/ArchivePaymentListSearch',
+            success: function (result) {
+                $('#divPayment').html(result);
+
+                $(".dataTable").dataTable({
+                });
+
+            }, error: function (xhr) {
+
+            }
+        });
+        $("body").removeClass("ShowLoader");
+    }
+
+</script>

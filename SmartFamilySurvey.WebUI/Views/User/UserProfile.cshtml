@@ -1,0 +1,389 @@
+﻿@model ESS.SFS.ViewModel.UserViewModel
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    body {
+        height: 100% !important;
+    }
+
+    .image-cropper {
+        width: 65px;
+        height: auto;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    .profile-pic {
+        display: inline;
+        margin: 0 auto;
+        margin-left: -25%;
+        width: auto;
+    }
+
+    .avatar-upload {
+        position: relative;
+        max-width: 205px;
+        /*margin: 50px auto;*/
+    }
+
+        .avatar-upload .avatar-edit {
+            position: absolute;
+            right: 0px;
+            z-index: 1;
+            top: 0px;
+        }
+
+            .avatar-upload .avatar-edit input {
+                display: none;
+            }
+
+                .avatar-upload .avatar-edit input + label {
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    margin-bottom: 0;
+                    border-radius: 100%;
+                    background: #FFFFFF;
+                    border: 1px solid transparent;
+                    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                    cursor: pointer;
+                    font-weight: normal;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                    .avatar-upload .avatar-edit input + label:hover {
+                        background: #f1f1f1;
+                        border-color: #d6d6d6;
+                    }
+
+                    .avatar-upload .avatar-edit input + label:after {
+                        content: "\f304";
+                        font-family: 'Font Awesome 5 Duotone';
+                        color: #757575;
+                        position: absolute;
+                        top: 0px;
+                        left: 0;
+                        font-size: 10px;
+                        right: 0;
+                        text-align: center;
+                        margin: auto;
+                        color: #ccc;
+                    }
+
+        .avatar-upload .avatar-preview {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 100%;
+            border: 6px solid #F8F8F8;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+
+            .avatar-upload .avatar-preview > div {
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+</style>
+<div class="w-15 bg-themebrown">
+    <div class="">
+        <h3 class="SurveyTitle">Профил</h3>
+        <ul class="Sidebarnav">
+            <li class="active">
+                <a href="javascript:;">Настройки</a>
+            </li>
+            @*<li class="">
+                    <a href="/User/ActiveSurveyUser">active</a>
+                </li>
+                <li><a href="/User/ArchiveUser">archive</a></li>*@
+            <li><a href="/Account/Logout">Изход</a></li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="wrapper w-100">
+    <div class="BodyContent surveydetailview bg-white h-100 pl-3  px-5">
+        @using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { @class = "kt-form w-90", @enctype = "multipart/form-data" }))
+        {
+        <div class="d-flex w-25 pt-4">
+            <div class="w-25 d-none">
+
+                @*@if (@Model.profilePic != null)
+                {
+                    <div class="image-cropper">
+                        <img src="~/App_Shared/@Model.profilePic" id="btnFileUpload" class="profile-pic" style=" width: 103px !important; height: 80px !important;" />
+                    </div>
+                }
+                else
+                {
+                    <span class="img-placeholder" id="btnFileUpload"></span>
+                }*@
+
+                <span id="spnFilePath" class="d-none"></span>
+                <input type="file" id="FileUpload1" name="ProfileImage" style="display: none" />
+                @Html.HiddenFor(i => i.profilePic)
+
+
+                <img src="#" class="d-none" alt="Alternate Text" />
+            </div>
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="FileUpload1" accept=".png, .jpg, .jpeg" />
+                    <label for="FileUpload1"></label>
+                </div>
+                <div class="avatar-preview">
+                    @if (@Model.profilePic != null)
+                    {
+                    <div id="imagePreview" style="background-image: url(/App_Shared/@Model.profilePic);">
+                    </div>
+                    }
+                    else
+                    {
+                        <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="w-75 align-self-center pl-3">
+                <p class="font-14 mb-1 mt-2 usernameprofilesection">@Model.surname</p>
+                <p class="mutedtext font-12 d-none">@Model.Id</p>
+            </div>
+        </div>
+
+            <div class="d-flex mt-5">
+                <div class="col-md-6 pl-0">
+                    <div class="mb-4">
+                        <label class="mb-1">Потребителско име</label>
+                        @Html.HiddenFor(i => i.Id)
+                        @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "themecustomInput w-91", @placeholder = "username", @autocomplete = "off", @readonly = "readonly" })<br />
+                        @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="mb-4">
+                        <label class="mb-1">Име и фамилия</label>
+                        @*<input type="text" class="themecustomInput" placeholder="name" />*@
+                        <div class="d-flex">
+                            <div class="w-100">
+                                @Html.TextBoxFor(m => m.surname, new { @type = "text", @class = "themecustomInput", @placeholder = "Име и фамилия", @autocomplete = "off", @readonly = "readonly" })<br />
+                                @Html.ValidationMessageFor(x => x.surname, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="w-10 text-center">
+                                <img src="~/Assets/Edit_icon.svg" id="imSurname" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-4 d-flex">
+                        <div class="col-md-6 pl-0 pr-0">
+                            <label class="mb-1">Пол</label>
+
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    @Html.DropDownListFor(m => m.gender, new SelectList(Model.lstGender, "Id", "Name"), new { @class = "themecustomInput", @id = "drpGender" })
+                                    @Html.ValidationMessageFor(x => x.gender, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(m => m.gender)
+                                </div>
+                                <div class="w-25 text-center">
+                                    <img src="~/Assets/Edit_icon.svg" id="imGender" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 pr-0 pl-1">
+                            <label class="mb-1">Възраст</label>
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    @Html.TextBoxFor(m => m.age, new { @type = "number", @class = "themecustomInput", @placeholder = "age", @autocomplete = "off", @readonly = "readonly" })<br />
+                                    @Html.ValidationMessageFor(x => x.age, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="w-25 text-center">
+                                    <img src="~/Assets/Edit_icon.svg" id="imAge" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pr-0">
+                    <div class="mb-4">
+                        <label class="mb-1">Парола</label>
+
+                        <div class="d-flex">
+                            <div class="w-75" id="divPassword">
+                                @Html.TextBoxFor(m => m.password, new { @type = "password", @class = "themecustomInput", @placeholder = "password", @autocomplete = "off", @readonly = "readonly" })<br />
+                                @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="w-75" id="divUpdate" style="display:none;">
+                                @Html.TextBoxFor(m => m.updatePassword, new { @type = "password", @class = "themecustomInput", @placeholder = "password", @autocomplete = "off" })<br />
+                                @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="w-10 text-center">
+                                <img src="~/Assets/Edit_icon.svg" id="imPassword" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="mb-1">Семеен статус</label>
+                        <div class="d-flex">
+                            <div class="w-75">
+                                @Html.DropDownListFor(m => m.maritalStatus, new SelectList(Model.lstFamilyStatus, "Id", "Name"), new { @class = "themecustomInput", @id = "drpMaritalStatus" })
+                                @Html.ValidationMessageFor(x => x.maritalStatus, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.maritalStatus)
+                            </div>
+                            <div class="w-10 text-center">
+                                <img src="~/Assets/Edit_icon.svg" id="imFamilyStatus" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-4 w-84 d-flex">
+                        <div class="col-md-6 pr-0 pl-0">
+                            <label class="mb-1">Държава</label>
+
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    @Html.DropDownListFor(m => m.country, new SelectList(Model.lstCountry, "Value", "Text"), new { @class = "themecustomInput", @id = "drpCountry" })
+                                    @Html.ValidationMessageFor(x => x.country, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(m => m.country)
+                                </div>
+                                <div class="w-25 text-center">
+                                    <img src="~/Assets/Edit_icon.svg" id="imCountry" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 pr-0 pl-1">
+                            <label class="mb-1">Град</label>
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    @Html.DropDownListFor(m => m.city, new SelectList(Model.lstCity, "Id", "Name"), "Please select city", new { @class = "themecustomInput", @id = "drpCity" })
+                                    @Html.ValidationMessageFor(x => x.city, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(m => m.city)
+                                </div>
+                                <div class="w-25 text-center">
+                                    <img src="~/Assets/Edit_icon.svg" id="imCity" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button class="themeBtn m-0 px-5" type="submit">Запазване</button>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      var msg = '@TempData["Message"]';
+      if (msg != null && msg != "" && msg != undefined) {
+          toastr.success(msg);
+      }
+
+      $("#drpGender").prop("disabled", true);
+      $("#drpMaritalStatus").prop("disabled", true);
+      $("#drpCountry").prop("disabled", true);
+      $("#drpCity").prop("disabled", true);
+
+  });
+
+
+    $("#imSurname").click(function () {
+        resetControl();
+        $("#surname").prop("readonly", false);
+        $("#surname").attr("style", "border: 1px solid #95d8ce !important");
+    });
+
+
+    $("#imPassword").click(function () {
+        resetControl();
+        $("#divPassword").hide();
+        $("#divUpdate").show();
+        $("#updatePassword").attr("style", "border: 1px solid #95d8ce !important");
+     });
+
+    $("#imAge").click(function () {
+        resetControl();
+        $("#age").prop("readonly", false);
+        $("#age").attr("style", "border: 1px solid #95d8ce !important");
+    });
+
+    $("#imGender").click(function () {
+        resetControl();
+        $("#drpGender").prop("disabled", false);
+        $("#drpGender").attr("style", "border: 1px solid #95d8ce !important");
+    });
+
+    $("#imFamilyStatus").click(function () {
+        resetControl();
+        $("#drpMaritalStatus").prop("disabled", false);
+        $("#drpMaritalStatus").attr("style", "border: 1px solid #95d8ce !important");
+    });
+
+    $("#imCountry").click(function () {
+        resetControl();
+        $("#drpCountry").prop("disabled", false);
+        $("#drpCountry").attr("style", "border: 1px solid #95d8ce !important");
+    });
+
+    $("#imCity").click(function () {
+        resetControl();
+        $("#drpCity").prop("disabled", false);
+        $("#drpCity").attr("style", "border: 1px solid #95d8ce !important");
+    });
+
+    function resetControl() {
+        $("#surname").attr("style", "border: none !important");
+        $("#updatePassword").attr("style", "border: none !important");
+        $("#age").attr("style", "border: none !important");
+        $("#drpGender").attr("style", "border: none !important");
+        $("#drpMaritalStatus").attr("style", "border: none !important");
+        $("#drpCountry").attr("style", "border: none !important");
+        $("#drpCity").attr("style", "border: none !important");
+    }
+
+
+    $(function () {
+        var fileupload = $("#FileUpload1");
+        var filePath = $("#spnFilePath");
+        var button = $("#btnFileUpload");
+        button.click(function () {
+            fileupload.click();
+        });
+        fileupload.change(function () {
+            var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
+            filePath.html(fileName);
+        });
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#FileUpload1").change(function () {
+        readURL(this);
+    });
+</script>
