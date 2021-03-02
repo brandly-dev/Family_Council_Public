@@ -22,7 +22,7 @@
                                     <span class="border-right px-2 font-10 font-gregular">@item.PaymentMethod</span>
                                 </p>
                                 <div class="pb-1">
-                                    <small class="font-10 font-gmedium">requested points: <span class="text-themegreen">@item.RequestedPoints</span></small>
+                                    <small class="font-10 font-gmedium">брой точки: <span class="text-themegreen">@item.RequestedPoints</span></small>
 
                                 </div>
 
@@ -31,11 +31,11 @@
                         <div>
                             @if (item.Status == "Pending")
                             {
-                                <p class="text-themegreen font-12 font-gmedium">Изчаква се одобрение от администратора</p>
+                                <p class="font-12 font-gmedium" id="Pending">Изчаква одобрение</p>
                             }
                             else
                             {
-                                <p class="text-themegreen font-12 font-gmedium">Одобрено</p>
+                                <p class="font-12 font-gmedium" id="Approved">Одобрено</p>
                             }
                         </div>
                     </div>

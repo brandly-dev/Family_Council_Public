@@ -85,7 +85,7 @@
                             <h4 id="poolName" class="text-themegreen mt-4">Заглавие на анкетата</h4>
                             <div>
                                 <p class="font-14  settingtitle"> google forms шаблон</p>
-                                <div class="portlet mb-2">
+                                <div class="portlet">
                                     <p class="portletTitle mb-0" id="pFormName"> google forms шаблон</p>
                                     <div class="d-flex justify-content-between">
                                         <p class="formstext mb-0" id="pFormDueDate">Краен срок: 4.12.2020</p>
@@ -98,12 +98,15 @@
                             </div>
                             <div class="mb-2 genralsettingdiv">
                                 <p class="font-14  settingtitle mt-3"> Настройки</p>
-                                <div class="portlet mb-2">
+                                <div class="portlet">
                                     <p class="portletTitle"> Брой участници</p>
                                     <div class="w-20">
                                         @Html.HiddenFor(x => x.PoolTemplate.Participant)
                                         <input type="number" id="participents" class="form-control rounded-0" value="20" />
                                     </div>
+                                </div>
+                                <p class="font-14  settingtitle mt-3"> Настройки</p>
+                                <div class="portlet">
                                     <p class="portletTitle mt-2"> Име на групата от участници</p>
                                     <div class="w-50">
                                         @Html.TextBoxFor(x => x.PoolTemplate.PoolName, new { @class = "form-control rounded-0 " })  @*clvalidateP2*@
@@ -113,10 +116,10 @@
                             </div>
                             <div class="mb-2 pooltemplatediv d-none">
                                 <p class="font-14  settingtitle mt-3"> Запазени групи</p>
-                                <div class="portlet mb-2">
+                                <div class="portlet">
                                     <p class="portletTitle"> Изберете от запазените групи</p>
                                     <div class="w-50">
-                                        @Html.DropDownListFor(x => x.PoolTemplateId, new SelectList(ViewBag.PoolList, "Id", "PoolName"), "select", new { @class = "form-control" })
+                                        @Html.DropDownListFor(x => x.PoolTemplateId, new SelectList(ViewBag.PoolList, "Id", "PoolName"), "запазени групи", new { @class = "form-control" })
                                         <div id="errorclvalidate" style="display:none" class="text-danger">Задължително поле</div>
                                     </div>
                                 </div>
@@ -142,9 +145,9 @@
                             <div class="ShowFiltersDiv">
                                 <div class="agefilter filterdiv d-none" checkid="agecheck">
                                     <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
-                                    <div class="portlet mb-2">
+                                    <div class="portlet">
                                         <div class="d-flex justify-content-between">
-                                            <p class="portletTitle mb-2"> Възраст</p>
+                                            <p class="portletTitle"> Възраст</p>
                                             <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
                                         </div>
                                         <div class="">
@@ -156,11 +159,11 @@
                                     <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
                                     <div class="portlet mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <p class="portletTitle mb-2"> Град </p>
+                                            <p class="portletTitle"> Град </p>
                                             <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
                                         </div>
                                         <div class="w-50">
-                                            <select class=" selectpicker multicityselect disabled" data-actions-box="true" title="Please Select" multiple>
+                                            <select class=" selectpicker multicityselect disabled" data-actions-box="true" title="изберете град" multiple>
                                                 @foreach (var item in ViewBag.CityList)
                                                 {
                                                     <option value="@item.Id">@item.Name</option>
@@ -173,7 +176,7 @@
                                     <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
                                     <div class="portlet mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <p class="portletTitle mb-2"> Пол</p>
+                                            <p class="portletTitle"> Пол</p>
                                             <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
                                         </div>
                                         <div class="w-50">
@@ -185,7 +188,7 @@
                                     <p class="font-14  settingtitle m-22updown"> Демографски характеристики</p>
                                     <div class="portlet mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <p class="portletTitle mb-2"> Семеен статус</p>
+                                            <p class="portletTitle"> Семеен статус</p>
                                             <a href="javascript:;" class="text-themegreen deleteFilterbtn font-12">изтриване на филтър</a>
                                         </div>
                                         <div class="w-50">
@@ -196,14 +199,14 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button class="themeBtn w-25 Savebtn d-none" type="button">Запазване</button>
-                                <button class="themeBtn w-25 SendSurveyBtn" onclick="validateSecoundPage();"  type="button">Изпращане</button>
-                                <button class="themeBtnlight w-25 CancelBtn" type="button">Отмяна</button>
+                                <button class="themeBtn w-25 SendSurveyBtn" onclick="validateSecoundPage();"  type="button">изпращане</button>
+                                <button class="themeBtnlight w-25 CancelBtn" type="button">отмяна</button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-5 theme-lighgreen">
                         <div class="pannelOptioncheckboxesSection checkboxsection pb-4 ">
-                            <p class="darkTitle font-14 mb-1 mt-214px">pannel options</p>
+                            <p class="darkTitle font-14 mb-1 mt-214px">участници в анкетата</p>
                             <div class="custom-control themecheckbox custom-checkbox newPoolcheckbox">
                                 <input type="radio" class="custom-control-input" checked id="newPoolcheck" name="pannelOption">
                                 <label class="custom-control-label" for="newPoolcheck">Създаване на нова група участници в анкетата</label>
@@ -262,12 +265,12 @@
                     </div>
                     <div class="modaldarktitle text-center mb-4">
                         <p class="darkTitle">Сигурни ли сте, че искате да изпратите анкетата?</p>
-                        <p class="surveysubheading text-center pb-2">След като натиснете "Изпращане", участниците ще получат имейл с анкетата.</p>
+                        <p class="surveysubheading text-center pb-2">След като натиснете "изпрати", участниците ще получат имейл с анкетата.</p>
                     </div>
                     <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
 
-                        <button class="themeBtnlight m-0" onclick="cancelorder()">Отмяна</button>
-                        <button class="themeBtn m-0" onclick="customSubmit(this);">Изпращане</button>
+                        <button class="themeBtnlight m-0" onclick="cancelorder()">отмени</button>
+                        <button class="themeBtn m-0" onclick="customSubmit(this);">изпрати</button>
                     </div>
                 </div>
             </div>

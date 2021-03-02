@@ -30,7 +30,7 @@
         <h3 class="SurveyTitle">Участници</h3>
         <ul class="Sidebarnav">
             <li class="active">
-                <a href="/Survey/ActiveSurveys">Участници</a>
+                <a href="/pool/Participants">Участници</a>
             </li>
             <li>
                 <a href="/pool/Poolstemplates">Запазени групи</a>
@@ -122,13 +122,13 @@
 
                                 <div class="form-group">
                                     <label class="mb-2">Съобщение</label>
-                                    @Html.TextAreaFor(m => m.message, new { @type = "message", @class = "form-control font-14 themecustomInput", @style = "height:100px;", @placeholder = "Съобщение", @autocomplete = "off" })<br />
+                                    @Html.TextAreaFor(m => m.message, new { @type = "message", @class = "form-control font-14 themecustomInput", @style = "height:100px;", @placeholder = "съобщение", @autocomplete = "off" })<br />
                                     @Html.ValidationMessageFor(x => x.message, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="d-flex pb-3">
-                                    <button class="themeBtnlight m-0 font-12 mr-2 btn-block" data-dismiss="modal"> Отмяна</button>
-                                    <button class="themeBtn m-0 btn-sm font-12 btn-block" type="submit">Изпращане</button>
+                                    <button class="themeBtnlight m-0 font-12 mr-2 btn-block" data-dismiss="modal">отмени</button>
+                                    <button class="themeBtn m-0 btn-sm font-12 btn-block" type="submit">изпрати</button>
                                 </div>
                             }
 

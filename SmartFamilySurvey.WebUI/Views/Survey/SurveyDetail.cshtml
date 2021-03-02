@@ -10,54 +10,74 @@
         height: 100% !important;
     }
 </style>
+
+@*Mobile navbar*@
+<div class="white-mobile-navbar bg-white">
+    <h1>White navbar</h1>
+</div>
+
+<div class="brown-mobile-navbar bg-themebrown">
+    <ul class="Topbarnav">
+        <li class="active">
+            <a href="/User/ActiveSurveyUser">Активни</a>
+        </li>
+        <li><a href="/User/ArchiveUser">Архив</a></li>
+    </ul>
+</div>
+
+@*Desktop navbar*@
 <div class="w-15 bg-themebrown">
-    <div class="pt-3">
+    <div>
         <h3 class="SurveyTitle">Анкети</h3>
         <ul class="Sidebarnav">
-            <li>
+            <li class="active">
                 <a href="/User/ActiveSurveyUser">Активни</a>
             </li>
             <li>
-            <a href="/User/ArchiveUser">Архив</a>
+                <a href="/User/ArchiveUser">Архив</a>
             </li>
 
         </ul>
     </div>
 </div>
 <div class="wrapper w-100">
-    <div class="BodyContent surveydetailview bg-themlightbrown h-100 pl-3">
-        <div class="pt-5 pb-3">
-            <a href="/User/ActiveSurveyUser" class="text-themegreen font-12 font-gregular"><i class="fal fa-angle-left"></i> Назад </a>
-        </div>
-        <div class="mt-4">
-            <h4 class="text-themegreen font-gbold">@Model.Title</h4>
-            <p class="subtitle font-12">deallines: @Model.DueDate.Value.ToShortDateString()</p>
-            <input type="hidden" value="@Common.Encryption(Convert.ToString(Model.Id))" id="hdSurveyId" />
-        </div>
-        <div class="mt-5">
-            <div class="d-flex">
-                <div class="col-md-7 px-0 shadow-sm">
-                    @* show iframe here *@
-                    @*<div>
-                            @if (Model != null)
-                            {
-                                @if (Model.Form != null)
-                                {
-                                    @Model.Form.Url
-                                }
-                            }
-                        </div>*@
-
-                    <div class="divForm">
-                        @Html.Raw(Model.Form.Url)
-
+    <div class="bg-white">
+        <div class="d-flex justify-content-between px-5 topHeader">
+            <div>
+                <div class="d-flex">
+                    <div class="MainTitle">
+                        <a href="/User/ActiveSurveyUser" class="text-themegreen font-12 font-gregular"><i class="fal fa-angle-left"></i> Назад </a>
+                        <p></p>
+                        <h4 class="text-themegreen mb-1">@Model.Title</h4>
+                        <p class="font-12">краен срок: @Model.DueDate.Value.ToShortDateString()</p>
+                        <input type="hidden" value="@Common.Encryption(Convert.ToString(Model.Id))" id="hdSurveyId" />
                     </div>
-                    @*<div id="ff-compose"></div>
-                        <script async defer src="https://formfacade.com/include/111125699878020615623/form/1FAIpQLSfjGm-WwQvHb_9y0N-U1naszaY86X9nFzp2aviI_yOBJijyuQ/classic.js?div=ff-compose"></script>*@
-                </div>
-                <div class="col-md-5">
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <div class="d-flex">
+            <div class="col-md-7 px-0 shadow-sm">
+                @* show iframe here *@
+                @*<div>
+                        @if (Model != null)
+                        {
+                            @if (Model.Form != null)
+                            {
+                                @Model.Form.Url
+                            }
+                        }
+                    </div>*@
+
+                <div class="divForm">
+                    @Html.Raw(Model.Form.Url)
+
+                </div>
+                @*<div id="ff-compose"></div>
+                    <script async defer src="https://formfacade.com/include/111125699878020615623/form/1FAIpQLSfjGm-WwQvHb_9y0N-U1naszaY86X9nFzp2aviI_yOBJijyuQ/classic.js?div=ff-compose"></script>*@
+            </div>
+
         </div>
     </div>
 </div>
@@ -72,7 +92,7 @@
         $("#divForm").hide();
         e.stopPropagation();
        // $("body").removeClass("ShowLoader");
-        
+
         //alert('onsubmit by zia')
     });
     $(".ff-form").submit(function (event) {
@@ -92,10 +112,10 @@
         // fired when a mutation occurs
         console.log(mutations);
         console.log(observer);
-        
+
         setTimeout(function () {
             if ($('#ff-success').length > 0) {
-                
+
                 $.ajax({
                     type: 'Post',
                     data: { sid: $("#hdSurveyId").val() },
@@ -127,6 +147,6 @@
     observer.observe(document, {
         subtree: true,
         attributes: true
-        
+
     });
 </script>

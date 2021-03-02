@@ -7,10 +7,11 @@
 
 
 <style>
-    main{
-        min-height:100% !important;
+    main {
+        min-height: 100% !important;
     }
-    body{
+
+    body {
         height: 100% !important;
     }
 
@@ -20,7 +21,7 @@
 
     .pointsDiv {
         font-family: Gilroy-Bold;
-        font-size: 32px;
+        font-size: 50px;
         font-weight: bold;
         font-stretch: normal;
         font-style: normal;
@@ -31,7 +32,7 @@
     }
 
     .popuptitle {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: bold;
         font-stretch: normal;
         font-style: normal;
@@ -41,24 +42,67 @@
         color: #282925;
     }
 </style>
+
+
+@*Mobile navbar*@
+@*White bar*@
+<div class="white-mobile-navbar bg-white">
+    <a href="/User/ActiveSurveyUser">
+        <img src="~/Assets/Logo_small.svg" class="img-fluid" />
+    </a>
+    <h3 class="SurveyTitle">плащания</h3>
+
+    <div class="dropdown show">
+        <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="~/Assets/menu mobile.svg" class="img-fluid" />
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="/User/ActiveSurveyUser">
+                <img src="~/Assets/Nav_questionnaire_green.svg" class="img-fluid" />
+                анкети
+            </a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/User/UserPayment">
+                <img src="~/Assets/Nav_payment_green.svg" class="img-fluid" />
+                плащания
+            </a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/user/UserProfile">
+                <img src="~/Assets/user_green.svg" class="img-fluid" />
+                профил
+            </a>
+        </div>
+    </div>
+</div>
+
+@*Brown bar*@
+<div class="brown-mobile-navbar bg-themebrown">
+    <ul class="Topbarnav">
+        <li class="active">
+            <a href="/User/UserPayment">статус на плащанията</a>
+        </li>
+    </ul>
+</div>
+
+@*Desktop navbar*@
 <div class="w-15 bg-themebrown">
-    <div class="pt-3">
-        <h3 class="text-center SurveyTitle">Точки</h3>
+    <div>
+        <h3 class="SurveyTitle">плащания</h3>
         <ul class="Sidebarnav">
             <li class="active">
-                <a href="/user/PendingPaymentList" class="pl-3">Чакащи одобрение плащания</a>
+                <a href="/User/UserPayment">статус на плащанията</a>
             </li>
-            @*<li>
-                <a href="/user/ArchivePaymentList"> archive payments</a>
-            </li>*@
         </ul>
     </div>
 </div>
 
 <div class="wrapper w-100">
-    <div class="BodyContent surveydetailview bg-white h-100 pl-3">
+    <div class="BodyContent paymentsview bg-white h-100 pl-3">
         <div class="bg-white">
-            <div class="d-flex justify-content-between pr-5 topHeader pl-4">
+            <div class="d-flex justify-content-between px-5 topHeader">
                 <div>
                     <div class="d-flex">
                         <div class="mr-3 pt-1">
@@ -73,14 +117,14 @@
             </div>
         </div>
         <div class="mt-3">
-            <div class="d-flex">
+            <div class="payments_main d-flex">
                 <div class="col-md-7 px-0 shadow-sm">
-                    <div class="">
+                    <div class="surveyPortal">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <span class="surverdetailsmalltitle px-4 py-3 d-block"><span id="spPaymentRequest">Брой запитвания: </span> <span id="spCount">0</span></span>
+                                <span class="surverdetailsmalltitle px-4 py-3 d-block"><span id="spPaymentRequest">Брой запитвания: </span> <span class="text-themegreen" id="spCount">0</span></span>
                             </div>
-                            <div class="w-25 align-self-center pr-4 ">
+                            <div class="align-self-center pr-4 ">
                                 <select class="form-control form-control-sm" id="drpStatus">
                                     <option value="">Всички</option>
                                     <option value="Pending">Чакащи</option>
@@ -100,7 +144,8 @@
                             @*<img src="~/Assets/Bee_magnifying_glass.svg" class="img-fluid mb-3" />*@
                             @if (ViewBag.userInfo != null)
                             {
-                                <p class="pointsDiv text-center mb-5"> <span id="spCreditPoints">@ViewBag.userInfo.CurrentCreditPoints</span>  точки</p>
+                                <p class="pointsDiv text-center"> <span id="spCreditPoints">@ViewBag.userInfo.CurrentCreditPoints</span></p>
+                                <p class="pointsDiv text-center font-18">точки</p>
                                 @if (ViewBag.surveryInfo != null)
                                 {
                                     if (@ViewBag.surveryInfo.CompletedDate != null)
@@ -117,7 +162,7 @@
                             }
 
 
-                            <button class="m-0 themeBtn font-12 " data-toggle="modal" data-target="#requestPaymentPopup">Заявка за плащане</button>
+                            <button class="m-0 themeBtn font-12 " data-toggle="modal" data-target="#requestPaymentPopup">обмени</button>
                         </div>
                     </div>
                 </div>
@@ -139,8 +184,8 @@
                         <p class="popuptitle font-gbold mb-0 mt-3">Заявка за плащане</p>
                     </div>
                     <div class="px-5 mt-3">
-                        <div class="form-group  text-center">
-                            <label class="font-gbold">Колко точки да бъдат конвертирани? (10 точки = 5 евро)</label>
+                        <div class="form-group">
+                            <label class="font-gbold">брой точки:</label>
                             <input type="text" class="themecustomInput font-gmedium" value="50" id="txtPoints" />
                         </div>
                         <div class=" mb-1">
@@ -155,7 +200,7 @@
                             </div>
                         </div>
                         <div class=" mb-3 mt-3">
-                            <button class="themeBtn m-0 btn-sm btn-block py-2 font-10 px-2" id="btnSend">Изпращане</button>
+                            <button class="themeBtn m-0 btn-sm btn-block py-2 font-12 px-2" id="btnSend">изпращане</button>
                         </div>
                     </div>
                 </div>
@@ -205,7 +250,7 @@
             paymentType = 2;
         }
 
-        
+
 
         $.ajax({
             type: 'Post',
@@ -241,15 +286,15 @@
                 $("#spCount").text($(".surveyPortal").length);
 
                 if (value == "" || value == undefined || value == null) {
-                    $("#spPaymentRequest").text("All payments request: ");
+                    $("#spPaymentRequest").text("Всички плащания: ");
                 }
 
                 if (value == "Pending") {
-                    $("#spPaymentRequest").text("Pending payments request: ");
+                    $("#spPaymentRequest").text("чакащи одобрение плащания: ");
                 }
 
                 if (value == "Approved") {
-                    $("#spPaymentRequest").text("Approved payments request: ");
+                    $("#spPaymentRequest").text("одобрени плащания: ");
                 }
 
             }, error: function (xhr) {
@@ -259,9 +304,5 @@
 
         $("body").removeClass("ShowLoader");
     });
-
-
-
-
 
 </script>

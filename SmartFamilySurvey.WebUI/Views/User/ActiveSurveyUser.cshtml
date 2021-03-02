@@ -9,8 +9,54 @@
         padding-top: 25px;
     }
 </style>
+
+@*Mobile navbar*@
+@*White bar*@
+<div class="white-mobile-navbar bg-white">
+    <a href="/User/ActiveSurveyUser">
+        <img src="~/Assets/Logo_small.svg" class="img-fluid" />
+    </a>
+    <h3 class="SurveyTitle">Анкети</h3>
+
+    <div class="dropdown show">
+        <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="~/Assets/menu mobile.svg" class="img-fluid" />
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="/User/ActiveSurveyUser">
+                <img src="~/Assets/Nav_questionnaire_green.svg" class="img-fluid" />
+                анкети
+            </a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/User/UserPayment">
+                <img src="~/Assets/Nav_payment_green.svg" class="img-fluid" />
+                плащания
+            </a>
+
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/user/UserProfile">
+                <img src="~/Assets/user_green.svg" class="img-fluid" />
+                профил
+            </a>
+        </div>
+    </div>
+</div>
+
+@*Brown bar*@
+<div class="brown-mobile-navbar bg-themebrown">
+    <ul class="Topbarnav">
+        <li class="active">
+            <a href="/User/ActiveSurveyUser">Активни</a>
+        </li>
+        <li><a href="/User/ArchiveUser">Архив</a></li>
+    </ul>
+</div>
+
+@*Desktop navbar*@
 <div class="w-15 bg-themebrown">
-    <div class="">
+    <div>
         <h3 class="SurveyTitle">Анкети</h3>
         <ul class="Sidebarnav">
             <li class="active">

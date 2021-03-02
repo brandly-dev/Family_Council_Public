@@ -4,119 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-
-    .LoginLeftBackground {
-        background: url(/Assets/Login_bg_left.svg);
-        height: 100vh;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .LoginrightBackground {
-        background: url(/Assets/Login_bg_right.svg);
-        height: 100vh;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: right;
-    }
-
-    .ShowTopLogo {
-        padding: 46px 40px 20px 40px;
-        text-align: center;
-    }
-    .custom-control-label {
-        font-family: Gilroy !important;
-    }
-    .portletBox {
-        width: 86%;
-        height: 378px;
-        margin: 0 auto 7.8px auto;
-        padding: 12px 91px 29px 94px;
-        box-shadow: 5px 10px 15px 0 rgba(0, 0, 0, 0.16);
-        background-color: #ffffff;
-    }
-
-    .logintitle {
-        height: 40px;
-        font-family: Gilroy;
-        font-size: 33px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.24;
-        letter-spacing: normal;
-        text-align: left;
-        color: #00a395;
-    }
-
-    .logintitle2 {
-        height: 40px;
-        font-family: Gilroy;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.24;
-        letter-spacing: normal;
-        text-align: left;
-        color: #00a395;
-    }
-
-    .subtitleLogin {
-        font-family: Gilroy;
-        font-size: 10px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 0.4;
-        letter-spacing: -0.25px;
-        text-align: left;
-        color: #4e5048;
-    }
-
-    .SmallSection {
-        width: 100%;
-        height: 88%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-        .SmallSection label {
-            font-family: Gilroy-Bold;
-            font-size: 12px;
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 2;
-            letter-spacing: -0.31px;
-            text-align: left;
-            color: #4e5048;
-            margin: 2px;
-        }
-
-   
-    .hiddenBtn {
-        font-size: 12px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        font-family: Gilroy-Medium;
-        line-height: 1.5;
-        letter-spacing: -0.31px;
-        text-align: left;
-        color: #00a395;
-    }
-
-    .minumar {
-        margin-bottom: -17px;
-    }
-    .spRequired {
-        font-size: 12px;
-        color: red;
-    }
-</style>
-
 @*<form method="post" id="loginForm" name="loginForm">
             <table cellpadding="0" border="1">
                 <tr>
@@ -305,7 +192,7 @@
             <img src="~/Assets/Logo_big.svg" />
         </div>
         <form asp-area="Account" class="kt-form" asp-controller="Account" asp-action="SignUp" id="MainForm">
-            @Html.HiddenFor(i => i.Id);
+            @Html.HiddenFor(i => i.Id)
             <div class="portletBox">
                 <h3 class="text-themegreen logintitle text-center ">Добре дошли!</h3>
                 <h2 class="text-themegreen logintitle2  text-center mb-2 d-none">Довършете своя профил</h2>
@@ -314,24 +201,24 @@
                     <div class="stepss">
                         <div class="step1 ">
                             <div>
-                                <label>Потребителско име</label>
-                                @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "themecustomInput", @placeholder = "Имейл", @autocomplete = "off", @readonly = "readonly" })<br />
+                                <label>Потребителско име:</label>
+                                @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "themecustomInput", @placeholder = "имейл", @autocomplete = "off", @readonly = "readonly" })<br />
                                 @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
-                                <span id="spEmail" style="display:none" class="spRequired">Required</span>
+                            <span id="spEmail" style="display:none" class="spRequired">Задължително поле</span>
                             </div>
                             <div class="text-right minumar mt-1">
                                 <a href="javascript:;" class="text-themegreen hiddenBtn"> <img src="~/Assets/Eye_login_page.svg" class="mr-2 " />hide</a>
                             </div>
 
                             <div class="mb-2">
-                                <label>Парола</label>
-                                @Html.TextBoxFor(m => m.password, new { @type = "password", @ID = "password", @name = "password", @class = "themecustomInput passwordInput hide-password", @placeholder = "Парола", @autocomplete = "off" })<br />
+                                <label>Парола:</label>
+                                @Html.TextBoxFor(m => m.password, new { @type = "password", @ID = "password", @name = "password", @class = "themecustomInput passwordInput hide-password", @placeholder = "парола", @autocomplete = "off" })<br />
                                 @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
-                                <span id="spPassword" style="display:none" class="spRequired">Required</span>
+                            <span id="spPassword" style="display:none" class="spRequired">Задължително поле</span>
                             </div>
                             <div class="">
                                 <label>Потвърдете паролата</label>
-                                @Html.TextBoxFor(m => m.repeatPassword, new { @type = "password", @ID = "confirmpassword", @name = "confirmpassword", @class = "themecustomInput passwordInput hide-password", @placeholder = "Парола", @autocomplete = "off" })<br />
+                                @Html.TextBoxFor(m => m.repeatPassword, new { @type = "password", @ID = "confirmpassword", @name = "confirmpassword", @class = "themecustomInput passwordInput hide-password", @placeholder = "парола", @autocomplete = "off" })<br />
                                 @Html.ValidationMessageFor(x => x.password, "", new { @class = "text-danger" })
                                 <span id="spConfirmPassword" style="display:none" class="spRequired">Задължително поле</span>
                             </div>
@@ -413,15 +300,15 @@
 
                                     <div class="custom-control themecheckbox custom-checkbox newsingup newPoolcheckbox">
                                         @Html.RadioButtonFor(model => model.maritalStatus, "1", new { @class = "custom-control-input", @id = "newPoolcheck" })
-                                        <label class="custom-control-label" for="newPoolcheck"> Неомъжена/Неженен  </label>
+                                        <label class="custom-control-label" for="newPoolcheck">необвързан</label>
                                     </div>
                                     <div class="custom-control themecheckbox custom-checkbox newsingup newPoolcheckbox">
                                         @Html.RadioButtonFor(model => model.maritalStatus, "2", new { @class = "custom-control-input", @id = "newPoolcheck2" })
-                                        <label class="custom-control-label" for="newPoolcheck2"> Омъжена/Женен  </label>
+                                        <label class="custom-control-label" for="newPoolcheck2">обвързан/семеен без деца</label>
                                     </div>
                                     <div class="custom-control themecheckbox custom-checkbox newsingup newPoolcheckbox">
                                         @Html.RadioButtonFor(model => model.maritalStatus, "3", new { @class = "custom-control-input", @id = "newPoolcheck3" })
-                                        <label class="custom-control-label" for="newPoolcheck3"> Самотен родител  </label>
+                                        <label class="custom-control-label" for="newPoolcheck3"> обвързан/семеен с деца до 18 год.</label>
                                     </div>
                                     @*<div class="custom-control themecheckbox custom-checkbox newPoolcheckbox">
                                         <input type="radio" class="custom-control-input" checked="" id="newPoolcheck" name="pannelOption">
@@ -442,9 +329,9 @@
                     </div>
                     <div>
                         <div>
-                            <button type="button" class="themeBtn nextBtn  btn-square mt-4 btn-block text-center">   next  <img class="ml-3" src="~/Assets/Arrow_next.svg" /></button>
+                            <button type="button" class="themeBtn nextBtn  btn-square mt-4 btn-block text-center">продължи <img class="ml-3" src="~/Assets/Arrow_next.svg" /></button>
                         </div>
-                        <div class="navcirlcie mt-4">
+                        <div class="navcirlcie mt-4 text-center">
                             <span class="greencircle active"></span>
                             <span class="greencircle"></span>
                             <span class="greencircle"></span>

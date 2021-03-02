@@ -1,5 +1,6 @@
 ﻿html{
     height:100%;
+    text-transform: lowercase;
 }
 @font-face {
     font-family: Gilroy-Bold;
@@ -39,7 +40,7 @@ body{
     margin:0;
     box-sizing:border-box;
     height:100%;
-    text-transform: lowercase;
+    text-transform: lowercase; 
 
 }
 .w-5{
@@ -142,14 +143,16 @@ body{
         }
 .theme-lighgreen {
     background: #c0efeb !important;
+    width: 100%;
 }
 .topHeader{
-    padding-top:40px;
+    padding-top:34px;
     padding-bottom:20px;
 }
 .btn-themegreen {
     background-color: #00a395;
     font-family:Gilroy-Medium !important;
+    text-transform: lowercase;
 }
 .font-10{
     font-size:12px !important;
@@ -250,7 +253,6 @@ label {
     font-stretch: normal;
     font-style: normal;
     line-height: 2;
-    letter-spacing: -0.31px;
     text-align: left;
     color: #4e5048;
 }
@@ -284,7 +286,7 @@ label {
     width: 100%;
     color: #4e5048;
     border: none !important;
-    margin-botton: 0.3rem;
+    margin-bottom: 0.3rem;
 }
 
 .themecustomInput:focus {
@@ -309,14 +311,43 @@ label {
     color: #ffffff;
     display: inline-block;
     text-align: center;
+    text-decoration: none;
 }
-.themeBtn:hover {
-    background-color: #008b7f;
-    transition: 1s;
-}
+    .themeBtn:hover {
+        background-color: #008b7f;
+        transition: 1s;
+        text-decoration: none;
+    }
 
-.font-14{
-    font-size:14px !important;
+a#btnApproved {
+    color: #00a395;
+    text-decoration: none;
+    background-color: #dff3f1;
+    padding: 6px;
+}
+    a#btnApproved:hover {
+        background-color: #00a395;
+        color: white;
+        transition: 1.5s;
+    }
+.startsurveyBtn {
+    color: #00a395;
+    text-decoration: none;
+    background-color: #dff3f1;
+    padding: 6px;
+}
+    .startsurveyBtn:hover {
+        background-color: #00a395;
+        color: white;
+        transition: 1.5s;
+        text-decoration: none;
+    }
+
+a#dropdownMenuLink {
+    padding: 10px 0px;
+}
+.font-14 {
+    font-size: 14px !important;
 }
 
 .settingtitle {
@@ -377,7 +408,7 @@ label {
     display: inline-block;
 }
 .checkboxsection{
-    margin-top:108px;
+    margin-top:250px;
     margin-left:38px;
 }
 .custom-control-label{
@@ -385,7 +416,7 @@ label {
     font-weight:normal;
 }
 .deleteFilterbtn {
-    font-family: Gilroy-Medium !important;
+    font-family: Gilroy !important;
 }
 .darkTitle {
     font-family: Gilroy-Bold;
@@ -526,7 +557,6 @@ label {
 .modal-dialog.modal-custom {
     width: 30% !important;
     max-width: 400px !important;
-    margin-top: 10%;
 }
 .modal-content {
     border: none !important;
@@ -566,6 +596,9 @@ label {
     text-align: left;
     color: #4e5048;
 }
+.surveydetailwhitebox {
+    box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.09);
+}
 .paggerDefault {
     padding: 1px 5px;
     color: #484848;
@@ -594,7 +627,7 @@ label {
 }
 .subtitleforpoolbox {
     font-family: Gilroy-Medium;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -605,6 +638,13 @@ label {
 }
 .addnewPooldiv button {
     padding: 6px 30px;
+}
+select#PoolTemplate_Gender, select#Gender,
+select#PoolTemplate_FamilyStatus, select#FamilyStatus {
+    border-color: #00a395;
+    color: #787b68;
+    border-radius: 0;
+    background-color: white;
 }
 .surverdetailsmalltitle {
     font-family: Gilroy-Medium;
@@ -619,7 +659,7 @@ label {
 }
 .addnewpoolmodaltitle{
     font-family: Gilroy-Bold;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -630,20 +670,21 @@ label {
 }
 .tagsspan {
     font-family: Gilroy;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     text-align: left;
-    color: #4e5048;
-    background-color: #f6f6f4;
-    display:inline-block;
+    color: black;
+    background-color: #dff3f1;
+    display: inline-block;
     padding: 3px 5px;
     border-radius: 10px;
+    margin-top: 6px;
 }
     .tagsspan a {
         color: #4e5048 !important;
-        font-size: 5px;
+        font-size: 10px;
         margin-left: 5px;
     }
 .checbacklightgrey {
@@ -784,6 +825,7 @@ body.ShowLoader .Loaderdiv {
     width: 5%;
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.15);
 }
+
 .stickbar {
     position: fixed;
     width: 12.4%;
@@ -802,7 +844,16 @@ div.w-15.bg-themebrown{
     top: 25%;
     right: 5%;
 }
-.min-he{
+.datepicker table tr td.active {
+    background-color: #00a395 !important;
+    background-image: none;
+}
+    .datepicker table tr td.active:hover {
+        background-color: #008b7f !important;
+        background-image: none;
+        transition: 1.5s;
+    }
+.min-he {
     min-height: 100% !important;
 }
 main {
@@ -814,11 +865,16 @@ main {
 .errorclvalidate, .validation-summary-errors, #errorclvalidate {
     font-size: 12px;
 }
+
+.white-mobile-navbar {
+    display:none;
+}
+.brown-mobile-navbar {
+    display: none;
+}
+
+
 @media only screen and (max-width:769px){
-    .SurveyTitle {
-        margin: 86px 34px 17px 1.5px !important;
-        font-size: 14px !important;
-    }
     .Sidebarnav li a {
         padding-left: 15px;
         font-size: 12px !important;
@@ -834,10 +890,107 @@ main {
     .createnewsurveyBtn {
         padding: 3px 14px 5px 16px;
     }
-    .SurveyTitle {
-        margin: 86px 0px 17px 3px !important;
-        font-size: 10px !important;
+    .white-side-bar, .w-15.bg-themebrown {
+        display: none;
     }
+
+    main {
+        flex-direction:column;
+    }
+    .white-mobile-navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    h3.SurveyTitle {
+        color: #a39393;
+        margin: 0;
+        padding: 0;
+    }
+
+    .brown-mobile-navbar {
+        display: block;
+        height: 5%;
+    }
+
+    .Topbarnav {
+        display:flex;
+        justify-content: center;
+    }
+    .Topbarnav {
+        padding: 0;
+        margin-bottom: 0;
+    }
+
+        .Topbarnav li {
+            list-style: none !important;
+            padding: 7px 0 10px 0;
+        }
+
+            .Topbarnav li a {
+                padding: 20px;
+                color: #fff;
+                font-size: 14px;
+            }
+
+                .Topbarnav li a:hover {
+                    text-decoration: none;
+                    color: #c0efeb;
+                    transition: 1s;
+                }
+
+            .Topbarnav li.active {
+                background-color: #c0efeb;
+                text-align: left;
+                color: #a39393;
+            }
+
+                .Topbarnav li.active a {
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-family: Gilroy-Medium !important;
+                    font-style: normal;
+                    line-height: 2.17;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #a39393;
+                }
+    a.dropdown-item img {
+        width: 22px;
+        height: 22px;
+    }
+    .profileInfo {
+        flex-direction: column;
+        align-content: center;
+    }
+    .profileInfo div{
+        padding-left: 0px;
+
+    }
+    .city_country {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .age_gender {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .payments_main {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .addnewpoolbox {
+        width: 100%;
+    }
+    .paymentsview {
+        padding-left: 0px !important;
+    }
+    .modal-dialog.modal-custom {
+        width: 95% !important;
+    }
+
+
     .Sidebarnav li {
         list-style: none !important;
         text-align: center;
@@ -872,7 +1025,7 @@ main {
     .topHeader img:not(.img-fluid):not(.searchicon) {
         width: 33px;
     }
-    }
+}
 .usericon {
     color: #c1b6b6;
     border: 1px solid #c1b6b6;
@@ -886,16 +1039,32 @@ main {
 .w-15.bg-themebrown {
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.15) !important;
 }
+
 input:not(.themecustomInput), select, .btn.dropdown-toggle.btn-light {
-    border-color: #00a395 !important;
-    color: #787b68 !important;
+    border-color: #00a395;
+    color: #787b68;
     background-color: white;
-    border-radius: 0 !important;
+    border-radius: 0;
+    text-transform: lowercase;
 }
     input:focus, select:focus, .btn.dropdown-toggle.btn-light:focus {
         box-shadow:none !important;
     }
-
+    input[name="daterange"] {
+        min-width: 208px;
+    }
+    .daterangepicker td.active, .daterangepicker td.active:hover {
+        background-color: #00a395;
+    }
+    .daterangepicker td.in-range{
+        background-color: #dff3f1;
+    }
+    .applyBtn {
+        background-color: #00a395;
+    }
+    .applyBtn:hover {
+        background-color: #008b7f;
+    }
 .page-item.active .page-link {
     background-color: #1ca496;
     border-color: #1ca496;
@@ -916,4 +1085,20 @@ input:not(.themecustomInput), select, .btn.dropdown-toggle.btn-light {
 .usericon.active {
     color: #1ca496;
     border-color: #1ca496;
+}
+p#Approved {
+    color: #00a395;
+}
+
+p#Pending {
+    color: #dcb800;
+}
+select.form-control, select.form-control:focus {
+    border-color: #00a395;
+    color: #787b68;
+    background-color: white;
+    border-radius: 0;
+}
+.btnDeletePopUp:hover {
+    text-decoration: none;
 }

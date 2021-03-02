@@ -9,7 +9,7 @@
                 <thead>
                     <tr>
                         <th>Потребителско име</th>
-                        <th>Удобрено на</th>
+                        <th>Oдобренo на</th>
                         <th>Точки</th>
                         <th>Начин на плащане</th>
                         <th>Статус</th>
@@ -24,7 +24,7 @@
                             <td>@(item.ApprovedDate != null ?  @item.ApprovedDate.Value.ToShortDateString() : "")</td>
                             <td>@item.RequestedPoints</td>
                             <td>@item.PaymentMethod</td>
-                            <td>Одобрен</td>
+                            <td class="Approved">Одобренo</td>
                         </tr>
                     }
 

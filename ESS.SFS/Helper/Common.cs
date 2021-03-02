@@ -238,7 +238,9 @@ namespace ESS.SFS.Helper
             public string Value { get; set; }
             public string Text { get; set; }
         }
-        public static readonly string SendToSurveyHtml = "<p>Dear [Name],<br />You received the new family survey [SurveyName]. Please login to the system and submit the survey.<br />Thanks<br />Regarding<br />Smart Family Survey</p>";
+        public static readonly string SendToSurveyHtml = 
+            "<p>Здравей [Name],<br />Получи нова анкета в платформата Family Council." +
+            " Влез в системата, за да я попълниш.<br />";
 
 
 

@@ -85,27 +85,19 @@
                             <a href="/user/PendingPaymentList"><img src="~/Assets/Nav_payment.svg" class="img-fluid" /></a>
                         </div>
                     }
-                    @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("AdminProfile"))
-                    {
-                        <div class="text-center pb-3">
-                            <div class="letterHere">
-                                <a href="/user/AdminProfile"><i class="fad fa-user usericon active"></i></a>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center pb-3">
-                            <div class="letterHere">
-                                <a href="/user/AdminProfile"><i class="fad fa-user usericon"></i></a>
-                            </div>
-                        </div>
-                    }
-
                 </div>
-                <div class="USerNameLetter text-center pb-3">
-                    <div class="letterHere "><a href="/Account/Logout"><i class="fal fa-power-off"></i></a></div>
-                </div>
+                @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("AdminProfile"))
+                {
+                    <div class="USerNameLetter text-center pb-3">
+                        <a href="/user/AdminProfile"><img src="~/Assets/user_green.svg" class="img-fluid" /></a>
+                    </div>
+                }
+                else
+                {
+                    <div class="USerNameLetter text-center pb-3">
+                        <a href="/user/AdminProfile"><img src="~/Assets/user.svg" class="img-fluid" /></a>
+                    </div>
+                }
             </div>
         </div>
         <div class="w-95 theme-lighgreen">
@@ -114,7 +106,6 @@
             </main>
         </div>
     </div>
-
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

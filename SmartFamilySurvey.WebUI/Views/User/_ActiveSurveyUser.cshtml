@@ -16,7 +16,7 @@
                     <div class="d-flex">
                         <div class=" pt-1">
                             <p class="portletSurveyTitle mb-1">@survey.Title</p>
-                            <p class="font-12 mutedtext mb-2 font-gregular">Краен срок: @survey.DueDate.Value.ToString("MM/dd/yyyy") </p>
+                            <p class="font-12 mutedtext mb-2 font-gregular"><span class="border-right pr-2">Краен срок: @survey.DueDate.Value.ToString("MM/dd/yyyy")</span><span class="border-right pr-2 px-2">@survey.Points точки</span></p>
                         </div>
                     </div>
                     <div>
@@ -25,7 +25,7 @@
                         {
                             @if (item.IsCompleted != true)
                             {
-                                <a href="/Survey/SurveyDetail?sid=@Common.Encryption(Convert.ToString(survey.Id))" class="themeBtnlight m-0">Започнете анкетата</a>
+                                <a href="/Survey/SurveyDetail?sid=@Common.Encryption(Convert.ToString(survey.Id))" class="startsurveyBtn m-0">попълнете</a>
                             }
                         }
                     </div>

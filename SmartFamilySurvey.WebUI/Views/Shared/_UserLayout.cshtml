@@ -48,7 +48,7 @@
         <img src="~/Assets/Loader.gif" />
     </div>
     <div class="d-flex align-items-stretch h-100">
-        <div class="w-5 bg-white position-relative">
+        <div class="w-5 bg-white position-relative white-side-bar">
             <div class="d-flex h-100vh flex-column sticksidebar justify-content-between">
                 <div>
                     <div class="text-center pt-3 pb-5">
@@ -88,14 +88,23 @@
                         </div>
 
                     }
+                </div>
 
-                </div>
-                <div class="USerNameLetter text-center pb-3">
-                    <div class="letterHere"><a id="userProfile" href="/User/UserProfile">Z</a></div>
-                </div>
+                @if (HttpContextAccessor.HttpContext.Request.Path.Value.Contains("UserProfile"))
+                {
+                    <div class="USerNameLetter text-center pb-3">
+                        <a href="/user/UserProfile"><img src="~/Assets/user_green.svg" class="img-fluid" /></a>
+                    </div>
+                }
+                else
+                {
+                    <div class="USerNameLetter text-center pb-3">
+                        <a href="/user/UserProfile"><img src="~/Assets/user.svg" class="img-fluid" /></a>
+                    </div>
+                }
             </div>
         </div>
-        <div class="w-95 theme-lighgreen">
+        <div class="theme-lighgreen">
             <main role="main" class="d-flex min-he">
                 @RenderBody()
             </main>

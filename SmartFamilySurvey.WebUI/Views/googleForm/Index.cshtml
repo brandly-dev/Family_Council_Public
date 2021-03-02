@@ -32,7 +32,7 @@
                     </div>
                     <div class="MainTitle">
                         <h4 class="text-themegreen mb-1">Google forms шаблони</h4>
-                        <p class="font-12">Броят на добавените шаблони е <span class="text-themegreen spCountUser">10.</span> </p>
+                        <p class="font-12">Брой добавени шаблони: <span class="text-themegreen spCountUser">10.</span> </p>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                     <div class="pb-4">
 
                         @*<button  class="themeBtn py-2 m-0 px-4" >Edit</button>*@
-                        <a href="javascript:;" class="text-themegreen font-gmedium font-12 btnDeletePopUp">delete</a>
+                        <a href="javascript:;" class="text-themegreen font-gmedium font-12 btnDeletePopUp">изтрий</a>
                     </div>
                 </div>
                 <div class="py-2 px-4 border-top text-right">
@@ -97,8 +97,8 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="requestPaymentPopup" tabindex="-1" role="dialog" aria-labelledby="addNewPoolBtn" aria-hidden="true">
+@*Strange modal for google form add. Not sure if it is necessary*@
+@*<div class="modal fade" id="requestPaymentPopup" tabindex="-1" role="dialog" aria-labelledby="addNewPoolBtn" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-custom" role="document">
         <div class="modal-content rounded-0">
             <div class="modal-body p-0">
@@ -132,12 +132,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
-</div>
+</div>*@
 
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
@@ -152,12 +150,12 @@
                         <img src="~/Assets/Bee_bulb.svg" class="img-fluid" />
                     </div>
                     <div class="modaldarktitle text-center mb-4">
-                        <p class="darkTitle">Искате ли да продължите?</p>
+                        <p class="darkTitle">ще изтриете избрания шаблон. Искате ли да продължите?</p>
                         @*<p class="surveysubheading text-center pb-2">after you press "send" the participants will receive an email with the survey.</p>*@
                     </div>
                     <div class="d-flex align-items-center justify-content mb-3 modalfooterBtn">
-                        <button class="themeBtnlight m-0" id="btnDelete">Да</button>
-                        <button class="themeBtn m-0" data-dismiss="modal" aria-label="Close">Не</button>
+                        <button class="themeBtnlight m-0" id="btnDelete">да</button>
+                        <button class="themeBtn m-0" data-dismiss="modal" aria-label="Close">не</button>
                     </div>
                 </div>
             </div>
